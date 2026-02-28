@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silver April 2026 Forecast – Lambcast</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <h1><a href="../index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
+</header>
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../forecasts.html">Forecasts</a>
+  <a href="../essays.html">Essays</a>
+  <a href="../projects.html">Projects</a>
+  <a href="../about.html">About</a>
+</nav>
+
+<section>
+
+  <div class="meta" style="margin-bottom:0.5em;">
+    <a href="../forecasts.html">Forecasts</a> &nbsp;›&nbsp; Metaculus Cup Spring 2026
+  </div>
+
+  <h2>Silver Price: Highest Price per Troy Ounce in April 2026</h2>
+
+  <div class="meta">
+    Published: February 28, 2026 &nbsp;•&nbsp;
+    Platform: <a href="https://www.metaculus.com" target="_blank">Metaculus</a> &nbsp;•&nbsp;
+    Resolves: April 30, 2026
+  </div>
+
+  <div style="display:flex; gap:2em; margin:1.5em 0 2em; flex-wrap:wrap; padding:1.2em; background:#f8f8f8; border-left:4px solid #333;">
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">My Median</div>
+      <div style="font-size:2em; font-weight:bold;">$115</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">80% Interval</div>
+      <div style="font-size:2em; font-weight:bold;">$105 – $126</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">90% Interval</div>
+      <div style="font-size:2em; font-weight:bold;">$97 – $138</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">Community Median</div>
+      <div style="font-size:2em; font-weight:bold; color:#999;">$95.2</div>
+    </div>
+  </div>
+
+  <h3>The Question</h3>
+  <p>
+    What will be the highest price of silver per troy ounce during April 2026?
+    This is a Metaculus Cup Spring 2026 tournament question with 96 forecasters and a community
+    median of $95.2 at time of submission. Silver's closing price on February 27, 2026 was $92.68.
+  </p>
+
+  <h3>Why the Community Median of $95.2 Is Puzzling</h3>
+  <p>
+    Silver closed at $92.68 on February 27. The community median of $95.2 implies the highest
+    price silver will reach in all of April is just $2.52 above today's price — essentially zero
+    upside over two months in a market with 83% annualized volatility. The most likely explanation
+    is anchoring: forecasters see a historically high price, remember the January spike and crash,
+    and anchor their distribution around current levels. This model is designed to fight that instinct.
+  </p>
+
+  <h3>What's Driving Silver in 2026</h3>
+  <p>
+    Three structural forces converged simultaneously that have never all been true at once:
+    the US added silver to its Critical Minerals List in late 2025; China implemented export
+    licensing restrictions on refined silver in January 2026, fragmenting global physical supply;
+    and AI data centers, electric vehicles, and next-generation solar panels all require silver
+    in ways that are difficult to substitute. Industrial buyers are price-insensitive in a way
+    speculative buyers are not. The result was a 34% surge in early 2026 including a $121 intraday
+    high in late January, followed by a pullback to the low $90s.
+  </p>
+
+  <h3>Data and Tools</h3>
+  <p>
+    All data pulled programmatically in Python using <strong>yfinance</strong> — silver futures (SI=F),
+    gold futures (GC=F), VIX (^VIX), and the US Dollar Index (DX-Y.NYB) from January 2020 through
+    February 27, 2026 (1,547 trading days). Modeling used <strong>statsmodels</strong> for OLS/WLS
+    regression, <strong>NumPy</strong> for Monte Carlo simulation, <strong>pandas</strong> for
+    time series handling, and <strong>matplotlib</strong> for visualization.
+    Full script available on <a href="https://github.com/lambcast" target="_blank">GitHub</a>.
+  </p>
+
+  <h3>Gold/Silver Ratio</h3>
+  <p>
+    Historical average ratio (2020–2026): 82.6:1. Current ratio: 56.4:1 (gold $5,230, silver $92.68).
+    Z-score: -2.56, meaning silver is statistically expensive relative to gold.
+    This is a genuine bearish signal and was included as a regression factor — however it was not
+    statistically significant in the recent 6-month window (p=0.448), suggesting the historical
+    ratio may no longer be the right anchor in the current structural regime.
+  </p>
+
+  <h3>Multi-Factor Regression</h3>
+  <p>
+    Daily return regression over the most recent 6 months (126 observations):
+    ret_silver = α + β₁·ret_gold + β₂·ret_vix + β₃·ret_dxy + β₄·lagged_ratio_z + ε
+  </p>
+
+  <table style="width:100%; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
+    <thead>
+      <tr style="border-bottom:2px solid #333;">
+        <th style="text-align:left; padding:0.5em 0;">Factor</th>
+        <th style="text-align:right; padding:0.5em;">β</th>
+        <th style="text-align:right; padding:0.5em;">p-value</th>
+        <th style="text-align:left; padding:0.5em 1em;">Significant?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Gold daily return</td>
+        <td style="text-align:right;">+2.290</td>
+        <td style="text-align:right;">&lt;0.001</td>
+        <td style="padding-left:1em;">✓ Yes</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">VIX daily return</td>
+        <td style="text-align:right;">-0.040</td>
+        <td style="text-align:right;">0.250</td>
+        <td style="padding-left:1em;">✗ No</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">DXY daily return</td>
+        <td style="text-align:right;">-0.039</td>
+        <td style="text-align:right;">0.962</td>
+        <td style="padding-left:1em;">✗ No</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Lagged gold/silver ratio z-score</td>
+        <td style="text-align:right;">+0.002</td>
+        <td style="text-align:right;">0.448</td>
+        <td style="padding-left:1em;">✗ No</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    R² = 0.717. Gold alone explains 72% of silver's daily return variance over the last six months.
+    The beta of 2.29 means silver amplifies gold's moves by more than 2x. Only gold was used
+    to adjust Monte Carlo drift.
+  </p>
+
+  <h3>Monte Carlo Simulation</h3>
+  <p>
+    Macro-adjusted drift based on gold's 30-day average return came to 1.008%/day — capped at
+    0.4%/day to prevent parabolic extrapolation while preserving directional signal.
+    Residual volatility: 2.80%/day. 10,000 daily price paths simulated from February 27 to
+    April 30 (42 trading days). Maximum price in April extracted per path.
+    Distribution winsorized at 5th/95th percentiles.
+  </p>
+
+  <h3>Results</h3>
+  <table style="width:100%; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
+    <thead>
+      <tr style="border-bottom:2px solid #333;">
+        <th style="text-align:left; padding:0.5em 0;">Statistic</th>
+        <th style="text-align:right; padding:0.5em;">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:0.4em 0;">MC Mean April High</td><td style="text-align:right;">$116.12</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:0.4em 0;">MC Median April High</td><td style="text-align:right;">$115.03</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:0.4em 0;">10th percentile (downside)</td><td style="text-align:right;">$96.91</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:0.4em 0;">25th percentile</td><td style="text-align:right;">$104.73</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:0.4em 0;">75th percentile</td><td style="text-align:right;">$126.43</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:0.4em 0;">90th percentile (upside)</td><td style="text-align:right;">$137.70</td></tr>
+      <tr style="border-bottom:2px solid #333; font-weight:bold;"><td style="padding:0.4em 0;">Submitted forecast</td><td style="text-align:right;">$115 median, $105–$126 (80% CI)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Risks</h3>
+  <p>
+    <strong>Bullish:</strong> China export controls; US Critical Minerals designation;
+    AI/EV/solar structural demand; weak dollar (DXY 97.6); moderately elevated VIX.
+  </p>
+  <p>
+    <strong>Bearish:</strong> Gold/silver ratio z-score -2.56 (silver expensive vs gold);
+    solar manufacturers cutting silver intensity -7% YoY; parabolic 6-month move raises
+    mean-reversion risk; deficit may already be priced in.
+  </p>
+
+  <h3>Revision Log</h3>
+  <div style="padding:1em; background:#f8f8f8; border-left:3px solid #ccc; font-size:0.88em; line-height:1.8;">
+    <strong>Feb 28, 2026</strong> — Initial forecast. Median $115, 80% CI $105–$126, 90% CI $97–$138.
+    Monte Carlo 10,000 paths, gold β=2.29, drift capped 0.4%/day, winsorized 5th/95th pct.
+  </div>
+
+</section>
+
+<footer>
+  © 2025 Alan Lamb — Lambcast
+</footer>
+</body>
+</html>
