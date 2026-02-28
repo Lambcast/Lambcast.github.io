@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 FIDE Candidates Tournament Forecast – Lambcast</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <h1><a href="../index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
+</header>
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../forecasts.html">Forecasts</a>
+  <a href="../essays.html">Essays</a>
+  <a href="../projects.html">Projects</a>
+  <a href="../about.html">About</a>
+</nav>
+
+<section>
+  <div class="meta" style="margin-bottom:0.5em;">
+    <a href="../forecasts.html">Forecasts</a> &nbsp;›&nbsp; Metaculus Cup Spring 2026
+  </div>
+
+  <h2>Who Will Win the 2026 FIDE Candidates Tournament?</h2>
+
+  <div class="meta">
+    Published: February 28, 2026 &nbsp;•&nbsp;
+    Platform: <a href="https://www.metaculus.com" target="_blank">Metaculus</a> &nbsp;•&nbsp;
+    Resolves: April 16, 2026
+  </div>
+
+  <div style="display:flex; gap:2em; margin:1.5em 0 2em; flex-wrap:wrap; padding:1.2em; background:#f8f8f8; border-left:4px solid #333;">
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">My Pick</div>
+      <div style="font-size:2em; font-weight:bold;">Caruana</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">My Probability</div>
+      <div style="font-size:2em; font-weight:bold;">26%</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">Community</div>
+      <div style="font-size:2em; font-weight:bold; color:#999;">29.6%</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">Biggest Disagreement</div>
+      <div style="font-size:2em; font-weight:bold; color:#555;">Nakamura -10pt</div>
+    </div>
+  </div>
+
+  <h3>The Tournament</h3>
+  <p>
+    The 2026 FIDE Candidates Tournament is an 8-player double round-robin held in Paphos, Cyprus
+    from March 29 to April 16. Each player faces every other player twice — once with white, once
+    with black — for 14 rounds total. The winner earns the right to challenge World Champion
+    Gukesh Dommaraju later in 2026. In the event of a tie, rapid and blitz tiebreaks determine
+    the winner.
+  </p>
+
+  <h3>The Field</h3>
+  <p>
+    Fabiano Caruana (USA, 2795) — qualified via 2024 FIDE Circuit. Only player in the field to have
+    won a Candidates Tournament (2018, 9/14). Six consecutive Candidates appearances. Most
+    experienced player in the field by a significant margin.
+  </p>
+  <p>
+    Hikaru Nakamura (USA, 2810) — qualified via highest average rating (Aug 2025–Jan 2026).
+    World #2 by rating. Last elite classical event: Norway Chess, June 2025. Since then,
+    played four small North American tournaments against opposition averaging ~2090 Elo to meet
+    FIDE's 40-game eligibility requirement.
+  </p>
+  <p>
+    Rameshbabu Praggnanandhaa (India) — qualified via 2025 FIDE Circuit. The dominant classical
+    performer of 2025: won Tata Steel, SuperBet Classic Romania, UzChess Cup Masters, runner-up
+    at Sinquefield Cup, and won the FIDE Circuit by a commanding margin.
+  </p>
+  <p>
+    Anish Giri (Netherlands) — qualified via 2025 Grand Swiss (8/11). Third Candidates appearance.
+    Consistent performer at elite level with strong recent form.
+  </p>
+  <p>
+    Javokhir Sindarov (Uzbekistan) — qualified via 2025 World Cup. Age 20, first Candidates
+    appearance. Limited head-to-head record against most of this field in classical chess.
+  </p>
+  <p>
+    Wei Yi (China) — qualified via 2025 World Cup. Re-emerged as a top-10 player after years
+    away from the game. Won Tata Steel 2024. First Candidates appearance.
+  </p>
+  <p>
+    Matthias Bluebaum (Germany) — qualified via 2025 Grand Swiss (runner-up). First Candidates
+    appearance. Best head-to-head percentage in the field, though over a small sample.
+    Favorable color distribution early in the tournament (three whites in first four rounds).
+  </p>
+  <p>
+    Andrey Esipenko (Russia) — qualified via 2025 World Cup. Has scored only 1 out of 10 in
+    decisive classical games against the rest of this field.
+  </p>
+
+  <h3>Model Approach: Weighted Scoring</h3>
+  <p>
+    This forecast uses a weighted scoring model rather than a pure Elo simulation. Each player
+    was scored 1–10 on four factors, weighted as follows:
+  </p>
+
+  <table style="width:100%; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
+    <thead>
+      <tr style="border-bottom:2px solid #333;">
+        <th style="text-align:left; padding:0.5em 0;">Factor</th>
+        <th style="text-align:right; padding:0.5em;">Weight</th>
+        <th style="text-align:left; padding:0.5em 1em;">Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Current Elo rating</td>
+        <td style="text-align:right;">20%</td>
+        <td style="padding-left:1em;">Useful signal, but can lag real readiness</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Recent classical form (Aug 2025–Feb 2026)</td>
+        <td style="text-align:right;">30%</td>
+        <td style="padding-left:1em;">Preparation and sharpness matter at this level</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Head-to-head record vs this field</td>
+        <td style="text-align:right;">30%</td>
+        <td style="padding-left:1em;">Most predictive factor in round-robin formats</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Candidates/elite tournament experience</td>
+        <td style="text-align:right;">20%</td>
+        <td style="padding-left:1em;">14 rounds is a format that rewards familiarity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Results</h3>
+
+  <table style="width:100%; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
+    <thead>
+      <tr style="border-bottom:2px solid #333;">
+        <th style="text-align:left; padding:0.5em 0;">Player</th>
+        <th style="text-align:right; padding:0.5em;">My %</th>
+        <th style="text-align:right; padding:0.5em;">Community %</th>
+        <th style="text-align:right; padding:0.5em;">Difference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Fabiano Caruana</td>
+        <td style="text-align:right;">26%</td>
+        <td style="text-align:right;">29.6%</td>
+        <td style="text-align:right;">-4</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Rameshbabu Praggnanandhaa</td>
+        <td style="text-align:right;">19%</td>
+        <td style="text-align:right;">13.1%</td>
+        <td style="text-align:right; color:#333; font-weight:bold;">+6</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Hikaru Nakamura</td>
+        <td style="text-align:right;">17%</td>
+        <td style="text-align:right;">27.4%</td>
+        <td style="text-align:right; color:#333; font-weight:bold;">-10</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Anish Giri</td>
+        <td style="text-align:right;">15%</td>
+        <td style="text-align:right;">9.1%</td>
+        <td style="text-align:right;">+6</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Wei Yi</td>
+        <td style="text-align:right;">8%</td>
+        <td style="text-align:right;">8.5%</td>
+        <td style="text-align:right;">-1</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Javokhir Sindarov</td>
+        <td style="text-align:right;">7%</td>
+        <td style="text-align:right;">9.1%</td>
+        <td style="text-align:right;">-2</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Matthias Bluebaum</td>
+        <td style="text-align:right;">6%</td>
+        <td style="text-align:right;">1%</td>
+        <td style="text-align:right;">+5</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">Andrey Esipenko</td>
+        <td style="text-align:right;">2%</td>
+        <td style="text-align:right;">2%</td>
+        <td style="text-align:right;">0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Key Disagreements with the Community</h3>
+  <p>
+    <strong>Nakamura down 10 points.</strong> His 2810 rating reflects results, not readiness.
+    Since Norway Chess in June 2025, Nakamura played exclusively in small North American
+    tournaments against opposition averaging around 2090 Elo — a deliberate strategy to meet
+    FIDE's 40-game eligibility requirement. Eight months without elite classical competition is
+    a meaningful inactivity penalty at this level, where opening preparation and positional
+    sharpness are built and maintained through high-level games. The bookmakers and community
+    are pricing his rating. This model prices his preparation.
+  </p>
+  <p>
+    <strong>Praggnanandhaa up 6 points.</strong> By almost any measure, Praggnanandhaa was the
+    dominant classical performer of 2025: Tata Steel winner, SuperBet Classic Romania winner,
+    UzChess Cup Masters winner, Sinquefield Cup runner-up, and FIDE Circuit winner by a
+    commanding margin. He enters Cyprus in the best form of anyone in the field.
+  </p>
+  <p>
+    <strong>Bluebaum up 5 points.</strong> The community has him at 1%, which implies near
+    impossibility. For a player who qualified via Grand Swiss runner-up, has the best
+    head-to-head percentage in the field (small sample), and gets favorable color distribution
+    early — three whites in his first four games — 1% is too dismissive. 6% reflects a
+    genuine long-shot, not an impossibility.
+  </p>
+
+  <h3>Model Limitations</h3>
+  <p>
+    The weighted scoring approach is interpretable and allows explicit adjustments for factors
+    that ratings miss — but it introduces subjectivity that a pure Elo simulation avoids.
+    The factor weights (why 30% on H2H and not 25%?) and the 1–10 scores themselves both
+    involve judgment calls without a strong empirical basis. Two reasonable analysts could
+    score the same player differently and produce meaningfully different outputs.
+  </p>
+  <p>
+    The more standard approach for an 8-player round-robin is an Elo-based simulation:
+    derive each player's expected win probability in every individual game from pairwise
+    Elo differences, simulate the full 14-round tournament thousands of times, and count
+    how often each player finishes first. This approach is fully mechanical and replicable —
+    anyone with the same inputs gets the same answer. It removes forecaster discretion almost
+    entirely, which is why it is trusted.
+  </p>
+  <p>
+    The limitation of a pure Elo simulation, however, is that Elo is calculated from game
+    results regardless of opponent quality or recency. Nakamura's 2810 rating was maintained
+    in part by winning games against 2090-rated players — a fact that an Elo simulation has
+    no mechanism to discount. This is the clearest case in the current field where a rating
+    meaningfully overstates competitive readiness, and it is the primary reason this model
+    departs from a pure Elo approach.
+  </p>
+  <p>
+    The ideal methodology would use an Elo simulation as a base, then apply targeted
+    adjustments only where there is concrete evidence the rating is misleading. Nakamura
+    is the strongest example of that case in this tournament.
+  </p>
+  <p>
+    Finally, lower probabilities for players like Giri, Sindarov, and Bluebaum reflect
+    relative likelihood, not elimination. At this level the field is genuinely close,
+    and upsets are part of the format.
+  </p>
+
+  <h3>Revision Log</h3>
+  <div style="padding:1em; background:#f8f8f8; border-left:3px solid #ccc; font-size:0.88em; line-height:1.8;">
+    <strong>Feb 28, 2026</strong> — Initial forecast submitted to Metaculus. Weighted scoring
+    model, 4 factors. Caruana 26%, Praggnanandhaa 19%, Nakamura 17%, Giri 15%.
+  </div>
+
+</section>
+
+<footer>
+  © 2025 Alan Lamb — Lambcast
+</footer>
+</body>
+</html>
