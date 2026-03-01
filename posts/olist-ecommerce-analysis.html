@@ -63,7 +63,7 @@
     driven by Black Friday demand. December reversed sharply (-25%), the typical post-holiday pattern.
   </p>
 
-  <img src="file:///C:/Users/alamb/Downloads/charts/monthly_orders.png" alt="Monthly order volume 2017-2018" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
+  <img src="charts/monthly_orders.png" alt="Monthly order volume 2017-2018" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
   <div class="meta" style="margin-bottom:1.5em;">Monthly order volume, January 2017 – August 2018. Growth stabilizes through 2018 as the platform matures.</div>
 
   <p>SQL approach: <code>GROUP BY</code> year and month to count orders per period, then use a CTE with <code>LAG()</code> window function to pull the prior month's count onto each row for growth rate calculation.</p>
@@ -93,7 +93,7 @@ FROM monthly_orders</pre>
     order items (price), products (category ID), and a category translation table (English names).
   </p>
 
-  <img src="file:///C:/Users/alamb/Downloads/charts/top_categories.png" alt="Top 10 product categories by revenue" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
+  <img src="charts/top_categories.png" alt="Top 10 product categories by revenue" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
   <div class="meta" style="margin-bottom:1.5em;">Top 10 product categories by total revenue (BRL). Health &amp; beauty and watches dominate.</div>
 
   <h3>Question 3: Which categories have the worst delivery times?</h3>
@@ -106,7 +106,7 @@ FROM monthly_orders</pre>
     across a 4-table join.
   </p>
 
-  <img src="file:///C:/Users/alamb/Downloads/charts/delivery_times.png" alt="Average delivery time by category" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
+  <img src="charts/delivery_times.png" alt="Average delivery time by category" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
   <div class="meta" style="margin-bottom:1.5em;">Top 10 slowest categories by average delivery time. Office furniture averages nearly 3 weeks.</div>
 
   <h3>Question 4: What share of customers made repeat purchases?</h3>
@@ -155,7 +155,7 @@ FROM monthly_orders</pre>
     top 3 per category.
   </p>
 
-  <img src="file:///C:/Users/alamb/Downloads/charts/top_sellers.png" alt="Top seller revenue by category" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
+  <img src="charts/top_sellers.png" alt="Top seller revenue by category" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
   <div class="meta" style="margin-bottom:1.5em;">Revenue of the top-ranked seller in each of the five highest-revenue categories.</div>
 
   <pre style="background:#1e1e1e; color:#d4d4d4; padding:1.2em 1.5em; border-radius:4px; font-size:0.82em; overflow-x:auto; line-height:1.7; margin:1em 0;">WITH seller_revenue AS (
@@ -210,7 +210,7 @@ ORDER BY category, revenue_rank</pre>
     experience metric.
   </p>
 
-  <img src="file:///C:/Users/alamb/Downloads/charts/late_reviews.png" alt="Review scores: on-time vs late deliveries" style="width:100%; max-width:560px; display:block; margin:1.2em 0 0.4em;">
+  <img src="charts/late_reviews.png" alt="Review scores: on-time vs late deliveries" style="width:100%; max-width:560px; display:block; margin:1.2em 0 0.4em;">
   <div class="meta" style="margin-bottom:1.5em;">Average review score by delivery outcome. Late deliveries score 1.72 points lower on a 5-point scale.</div>
 
   <h3>Summary</h3>
