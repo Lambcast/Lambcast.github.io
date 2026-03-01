@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)file:///C:/Users/alamb/Downloads/olist-ecommerce-analysis.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Analytics: Olist – Lambcast</title>
+  <link rel="stylesheet" href="file:///C:/Users/alamb/style.css">
+  <link rel="icon" type="image/x-icon" href="file:///C:/Users/alamb/favicon.ico">
+  <meta property="og:title" content="Lambcast">
+  <meta property="og:description" content="Forecasting, applied economics, and policy analysis by Alan Lamb.">
+  <meta property="og:image" content="https://lambcast.net/og-lamb-a.png">
+  <meta property="og:url" content="https://lambcast.net">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    .project-meta {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 1.5em;
+    }
+    .project-meta span {
+      margin-right: 1.5em;
+    }
+    .finding {
+      background: #f9f9f9;
+      border-left: 3px solid #333;
+      padding: 0.8em 1.2em;
+      margin: 1.2em 0;
+    }
+    .finding strong {
+      display: block;
+      margin-bottom: 0.3em;
+    }
+    .chart-block {
+      margin: 2em 0;
+    }
+    .chart-block img {
+      width: 100%;
+      max-width: 800px;
+      display: block;
+      margin: 0.8em 0;
+    }
+    .chart-block .caption {
+      font-size: 0.85em;
+      color: #666;
+      font-style: italic;
+    }
+    .sql-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1.2em 1.5em;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      overflow-x: auto;
+      margin: 1em 0;
+      line-height: 1.6;
+    }
+    .sql-block .kw  { color: #569cd6; }
+    .sql-block .fn  { color: #dcdcaa; }
+    .sql-block .cm  { color: #6a9955; }
+    .sql-block .st  { color: #ce9178; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+      font-size: 0.9em;
+      margin: 1em 0;
+    }
+    th {
+      background: #333;
+      color: #fff;
+      padding: 0.5em 1em;
+      text-align: left;
+    }
+    td {
+      padding: 0.4em 1em;
+      border-bottom: 1px solid #eee;
+    }
+    tr:nth-child(even) td { background: #f9f9f9; }
+    .tag {
+      display: inline-block;
+      background: #eee;
+      border-radius: 3px;
+      padding: 0.15em 0.6em;
+      font-size: 0.8em;
+      margin-right: 0.4em;
+      color: #444;
+    }
+    h2 { margin-top: 2em; }
+    h3 { margin-top: 1.5em; color: #222; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>E-Commerce Analytics: Olist</h1>
+</header>
+<nav>
+  <a href="file:///C:/Users/alamb/index.html">Home</a>
+  <a href="file:///C:/Users/alamb/forecasts.html">Forecasts</a>
+  <a href="file:///C:/Users/alamb/essays.html">Essays</a>
+  <a href="file:///C:/Users/alamb/projects.html">Projects</a>
+  <a href="file:///C:/Users/alamb/about.html">About</a>
+</nav>
+
+<section>
+  <div class="project-meta">
+    <span>📅 March 2026</span>
+    <span>🛠 SQL · Python · DuckDB</span>
+    <span>📦 Olist Brazilian E-Commerce Dataset</span>
+  </div>
+
+  <p>
+    This project analyzes 100,000 orders from Olist, a Brazilian e-commerce marketplace 
+    that connects small sellers to customers — structurally similar to Amazon's third-party 
+    marketplace. Using SQL as the primary analytical tool, I answer six business questions 
+    relevant to marketplace economics: growth trends, revenue concentration, fulfillment 
+    performance, customer retention, seller competition, and the relationship between 
+    operational failures and customer satisfaction.
+  </p>
+
+  <p>
+    All SQL queries were written in DuckDB via Python. Charts were generated with matplotlib. 
+    The full code is available on <a href="https://github.com/Lambcast">GitHub</a>.
+  </p>
+
+  <h2>Data</h2>
+  <p>
+    The <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank">Olist dataset</a> 
+    contains 8 relational tables covering orders, customers, products, sellers, payments, 
+    and reviews from September 2016 through October 2018. The analysis focuses on 
+    January 2017 through August 2018 — the period with complete monthly data — 
+    covering 88,358 delivered orders across 71 product categories.
+  </p>
+
+  <h2>Question 1: How did order volume grow month-over-month?</h2>
+  <p>
+    The business grew from 800 orders in January 2017 to roughly 6,500–7,500 per month 
+    by mid-2018 — nearly a 10x increase in 20 months. Growth was volatile in early 2017 
+    as the platform scaled, stabilizing to low single-digit monthly growth by 2018, 
+    consistent with a maturing marketplace.
+  </p>
+  <p>
+    November 2017 stands out with 63% month-over-month growth, driven by Black Friday 
+    demand. December reversed sharply (-25%), the typical post-holiday pattern.
+  </p>
+
+  <div class="chart-block">
+    <img src="file:///C:/Users/alamb/Downloads/charts/monthly_orders.png" alt="Monthly order volume 2017-2018">
+    <div class="caption">Monthly order volume, January 2017 – August 2018. Growth stabilizes through 2018 as the platform matures.</div>
+  </div>
+
+  <div class="sql-block">
+<span class="cm">-- Monthly order volume with month-over-month growth rate</span>
+<span class="kw">WITH</span> monthly_orders <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    <span class="fn">YEAR</span>(order_purchase_timestamp) <span class="kw">AS</span> year,
+    <span class="fn">MONTH</span>(order_purchase_timestamp) <span class="kw">AS</span> month,
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> order_count
+  <span class="kw">FROM</span> orders
+  <span class="kw">WHERE</span> order_purchase_timestamp <span class="kw">BETWEEN</span> <span class="st">'2017-01-01'</span> <span class="kw">AND</span> <span class="st">'2018-08-31'</span>
+  <span class="kw">GROUP BY</span> year, month
+)
+<span class="kw">SELECT</span>
+  year, month, order_count,
+  <span class="fn">LAG</span>(order_count) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> year, month) <span class="kw">AS</span> prev_month,
+  <span class="fn">ROUND</span>((order_count - <span class="fn">LAG</span>(order_count) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> year, month))
+    * 100.0 / <span class="fn">LAG</span>(order_count) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> year, month), 2) <span class="kw">AS</span> mom_growth
+<span class="kw">FROM</span> monthly_orders
+  </div>
+
+  <h2>Question 2: Which product categories generate the most revenue?</h2>
+  <p>
+    Health &amp; beauty leads all categories with R$1.26M in total revenue, followed by 
+    watches &amp; gifts (R$1.21M) and bed, bath &amp; table (R$1.04M). The top 10 categories 
+    account for a disproportionate share of platform revenue, consistent with the long-tail 
+    distribution typical of marketplace platforms.
+  </p>
+
+  <div class="chart-block">
+    <img src="file:///C:/Users/alamb/Downloads/charts/top_categories.png" alt="Top 10 product categories by revenue">
+    <div class="caption">Top 10 product categories by total revenue (BRL). Health &amp; beauty and watches dominate.</div>
+  </div>
+
+  <h2>Question 3: Which categories have the worst delivery times?</h2>
+  <p>
+    Office furniture takes an average of 20.8 days from order to delivery — 50% longer 
+    than most categories. Bulky, difficult-to-ship categories (furniture, large appliances) 
+    cluster at the top, while fashion and smaller goods deliver faster. Notably, garden tools 
+    appears in both the top revenue list and the slow delivery list, suggesting a category 
+    with high demand but fulfillment challenges.
+  </p>
+
+  <div class="chart-block">
+    <img src="file:///C:/Users/alamb/Downloads/charts/delivery_times.png" alt="Average delivery time by category">
+    <div class="caption">Top 10 slowest categories by average delivery time. Office furniture averages nearly 3 weeks.</div>
+  </div>
+
+  <h2>Question 4: What share of customers made repeat purchases?</h2>
+
+  <div class="finding">
+    <strong>3.12% repeat purchase rate</strong>
+    Only 2,997 of 96,096 unique customers placed more than one order during the 20-month period.
+  </div>
+
+  <p>
+    This figure is well below the 20–40% industry benchmark for e-commerce platforms. 
+    The low rate reflects Olist's position as a discovery marketplace — customers found 
+    a seller, completed a one-time transaction, and did not return to the platform. 
+    This is the core retention problem Amazon solved with Prime: giving customers a 
+    structural reason to default to the platform for repeat purchases.
+  </p>
+
+  <p>
+    <em>Data quality note:</em> the orders table contains a <code>customer_id</code> field 
+    that is unique per order, not per customer — a common schema trap. The correct 
+    customer identifier is <code>customer_unique_id</code> in the customers table, 
+    which was used here after diagnosing the discrepancy.
+  </p>
+
+  <h2>Question 5: How do sellers rank within each product category?</h2>
+  <p>
+    Using a window function to rank sellers by revenue within each category reveals 
+    significant concentration: in watches &amp; gifts, the top seller generated R$201,000 — 
+    nearly matching the second-place seller's R$192,000, suggesting a competitive category. 
+    In smaller categories, the top seller often dominates by a wide margin.
+  </p>
+
+  <div class="chart-block">
+    <img src="file:///C:/Users/alamb/Downloads/charts/top_sellers.png" alt="Top seller revenue by category">
+    <div class="caption">Revenue generated by the top-ranked seller in each of the five highest-revenue categories.</div>
+  </div>
+
+  <div class="sql-block">
+<span class="cm">-- Rank sellers by revenue within each category using RANK() window function</span>
+<span class="kw">WITH</span> seller_revenue <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    items.seller_id,
+    cat.product_category_name_english <span class="kw">AS</span> category,
+    <span class="fn">ROUND</span>(<span class="fn">SUM</span>(items.price), 2) <span class="kw">AS</span> total_revenue
+  <span class="kw">FROM</span> order_items <span class="kw">AS</span> items
+  <span class="kw">JOIN</span> products <span class="kw">ON</span> items.product_id = products.product_id
+  <span class="kw">JOIN</span> category_translation <span class="kw">AS</span> cat
+    <span class="kw">ON</span> products.product_category_name = cat.product_category_name
+  <span class="kw">GROUP BY</span> items.seller_id, cat.product_category_name_english
+),
+ranked <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> *,
+    <span class="fn">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> category <span class="kw">ORDER BY</span> total_revenue <span class="kw">DESC</span>) <span class="kw">AS</span> revenue_rank
+  <span class="kw">FROM</span> seller_revenue
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> ranked <span class="kw">WHERE</span> revenue_rank &lt;= 3
+<span class="kw">ORDER BY</span> category, revenue_rank
+  </div>
+
+  <h2>Question 6: Do late deliveries cause bad reviews?</h2>
+
+  <table>
+    <tbody><tr><th>Delivery Status</th><th>Avg Review Score</th><th>Order Count</th></tr>
+    <tr><td>On time</td><td>4.29 / 5</td><td>88,658</td></tr>
+    <tr><td>Late</td><td>2.57 / 5</td><td>7,701</td></tr>
+  </tbody></table>
+
+  <p>
+    Late deliveries are associated with a 1.72-point drop in average review score — 
+    a 40% decline in customer satisfaction from a single operational failure. 
+    With 7,701 late orders (roughly 8% of delivered orders), this represents a 
+    significant and quantifiable drag on platform reputation.
+  </p>
+  <p>
+    This finding mirrors Amazon's internal emphasis on delivery promise accuracy as 
+    a primary driver of customer trust. Fulfillment reliability is not a logistics 
+    metric — it is a customer experience metric.
+  </p>
+
+  <div class="chart-block">
+    <img src="file:///C:/Users/alamb/Downloads/charts/late_reviews.png" alt="Review scores: on-time vs late deliveries">
+    <div class="caption">Average review score by delivery outcome. Late deliveries score 1.72 points lower on a 5-point scale.</div>
+  </div>
+
+  <h2>Summary of Findings</h2>
+  <p>
+    Olist grew rapidly through 2017–2018 but exhibited structural weaknesses common 
+    to early-stage marketplace platforms: low customer retention, fulfillment reliability 
+    problems in heavy categories, and revenue concentration in a small number of categories 
+    and sellers. The data quantifies the cost of these weaknesses — particularly the 
+    direct link between late delivery and customer satisfaction — and points toward 
+    the interventions (loyalty incentives, seller fulfillment standards, category-specific 
+    logistics investment) that marketplace operators use to address them.
+  </p>
+
+  <p style="margin-top:2em;">
+    <span class="tag">SQL</span>
+    <span class="tag">DuckDB</span>
+    <span class="tag">Python</span>
+    <span class="tag">Window Functions</span>
+    <span class="tag">E-Commerce</span>
+    <span class="tag">Marketplace Economics</span>
+  </p>
+</section>
+
+<footer>
+  © 2025 Alan Lamb — Lambcast
+</footer>
+
+
+</body></html>
