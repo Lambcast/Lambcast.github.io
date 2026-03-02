@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/alamb/Downloads/bag-tax-did.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montgomery County Bag Tax: A Difference-in-Differences Analysis – Lambcast</title>
+  <link rel="stylesheet" href="file:///C:/Users/style.css">
+  <link rel="icon" type="image/x-icon" href="file:///C:/Users/favicon.ico">
+</head>
+<body>
+<header>
+  <h1><a href="file:///C:/Users/index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
+  <p>Forecasting • Causal Inference • Python / R / SQL / Stata</p>
+</header>
+<nav>
+  <a href="file:///C:/Users/index.html">Home</a>
+  <a href="file:///C:/Users/forecasts.html">Forecasts</a>
+  <a href="file:///C:/Users/essays.html">Essays</a>
+  <a href="file:///C:/Users/projects.html">Projects</a>
+  <a href="file:///C:/Users/about.html">About</a>
+</nav>
+
+<section>
+
+  <div class="meta" style="margin-bottom:0.5em;">
+    <a href="file:///C:/Users/projects.html">Projects</a>
+  </div>
+
+  <h2>Montgomery County Bag Tax: A Difference-in-Differences Analysis</h2>
+
+  <div class="meta">
+    Course Project: ECON 675 Environmental Economics &nbsp;•&nbsp;
+    University of Maryland, Winter 2026 &nbsp;•&nbsp;
+    Tools: Stata
+  </div>
+
+  <p style="margin-top:1.5em;">
+    In January 2012, Montgomery County, Maryland imposed a $0.05 tax on store-provided disposable bags --
+    the same tax Washington, D.C. had implemented two years earlier. Arlington County, Virginia debated
+    but never passed similar legislation. This project uses a difference-in-differences design to estimate
+    the causal effect of the tax on consumer bag-use behavior, exploiting the natural experiment created
+    by the policy's staggered adoption across the DMV region.
+  </p>
+
+  <h3>The Economic Problem</h3>
+  <p>
+    Disposable bags impose environmental and waste-management costs not reflected in their market price --
+    a classic negative externality. A Pigovian tax corrects this by raising the private cost of the
+    externality-generating behavior, ideally by the amount of external damage caused. The $0.05 tax is
+    small relative to most purchases, which raises an immediate theoretical question: is it large enough
+    to change behavior?
+  </p>
+
+  <h3>Utility Theory: When Does the Tax Work?</h3>
+  <p>
+    Consider a shopper deciding whether to use a store-provided bag or bring their own reusable bag b.
+    Let c be the personal cost of bringing a reusable bag (negative if inconvenient, positive if it
+    generates satisfaction), and w be wealth. Without any financial incentive, the shopper maximizes:
+  </p>
+  <p style="padding:0.8em 1.2em; background:#f8f8f8; border-left:3px solid #ccc; font-family:Georgia, serif;">
+    U<sub>N</sub>(w, b) = u(w) − b·c
+  </p>
+  <p>
+    Under risk-neutrality -- a reasonable approximation when the tax is small relative to wealth --
+    the utility function is linear: u(w) = γw. With a tax t on store-provided bags:
+  </p>
+  <p style="padding:0.8em 1.2em; background:#f8f8f8; border-left:3px solid #ccc; font-family:Georgia, serif;">
+    U<sub>T</sub>(w, b) = u(w − (1−b)·t) − b·c
+  </p>
+  <p>
+    The shopper brings a reusable bag when U(b=1) ≥ U(b=0), which under risk-neutrality simplifies
+    to c ≤ γt. The tax works by expanding the set of consumers for whom reusable bags are
+    utility-maximizing -- everyone whose personal cost of bringing a bag falls below the tax value.
+    A subsidy produces the same threshold through a different mechanism: raising the payoff to bringing
+    a bag rather than raising the cost of not doing so. Whether $0.05 is large enough to produce
+    measurable aggregate effects is an empirical question.
+  </p>
+
+  <h3>Data</h3>
+  <p>
+    Survey data from 16 stores across Montgomery County (MD), Washington, D.C., and Arlington County
+    (VA) for October 2011 through March 2012 -- three months before and three months after the Maryland
+    tax took effect. The dataset contains 16,251 shopper-level observations recording bag type used,
+    quantity, and demographic characteristics. Three outcomes are measured: the extensive margin
+    (whether a shopper used each bag type), the intensive margin (how many bags conditional on using
+    any), and per-person demand (total bags per shopper, combining both margins).
+  </p>
+
+  <pre style="background:#1e1e1e; color:#d4d4d4; padding:1.2em 1.5em; border-radius:4px; font-size:0.82em; overflow-x:auto; line-height:1.7; margin:1em 0;">* Import data
+import excel "DMV bag tax-2.xls", sheet("countdata") firstrow
+
+* Summary statistics
+estpost summarize
+esttab using "summary.rtf", cells("count mean sd min max") replace
+
+* Create categorical state variable
+generate state = .
+replace state = 1 if dc == 1
+replace state = 2 if md == 1
+replace state = 3 if va == 1
+label define statelab 1 "DC" 2 "MD" 3 "VA"
+label values state statelab
+
+* Extensive margin means by state and period
+tabstat useplastic usereuse nobags, by(post) stat(mean) nototal
+tabstat useplastic usereuse nobags if md==1, by(post) stat(mean) nototal
+tabstat useplastic usereuse nobags if va==1, by(post) stat(mean) nototal</pre>
+
+  <h3>Identification Strategy</h3>
+  <p>
+    The difference-in-differences estimator compares the pre-to-post change in Maryland (treatment)
+    to the pre-to-post change in the control group, netting out time trends common to both.
+    Washington, D.C. -- already taxed and in behavioral equilibrium throughout the study period --
+    serves as the primary reference group. Virginia provides an additional untreated control.
+    The core specification is:
+  </p>
+  <p style="padding:0.8em 1.2em; background:#f8f8f8; border-left:3px solid #ccc; font-family:Georgia, serif;">
+    y = β<sub>0</sub> + β<sub>1</sub>·MD + β<sub>2</sub>·VA +
+    β<sub>3</sub>·Post + β<sub>4</sub>·(Post × MD) + Xβ + ε
+  </p>
+  <p>
+    The coefficient of interest is β<sub>4</sub> on the interaction term postXmd, capturing
+    Maryland's post-tax change relative to D.C.'s change over the same period. Covariates include
+    race, gender, time-of-day, organic store indicator, and whether a bonus rebate was offered.
+    The critical assumption is parallel trends: in the absence of the tax, Maryland would have
+    followed the same trajectory as D.C. Virginia's near-zero changes across all outcomes over
+    the same period supports this assumption.
+  </p>
+
+  <h3>Descriptive Evidence</h3>
+
+  <div style="display:flex; gap:2em; margin:1.5em 0 2em; flex-wrap:wrap; padding:1.2em; background:#f8f8f8; border-left:4px solid #333;">
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">MD Plastic Use (Pre-Tax)</div>
+      <div style="font-size:2em; font-weight:bold;">81.7%</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">MD Plastic Use (Post-Tax)</div>
+      <div style="font-size:2em; font-weight:bold;">39.6%</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">MD Reusable Use (Pre-Tax)</div>
+      <div style="font-size:2em; font-weight:bold;">15.9%</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">MD Reusable Use (Post-Tax)</div>
+      <div style="font-size:2em; font-weight:bold;">49.2%</div>
+    </div>
+  </div>
+
+  <p>
+    Virginia shows no meaningful movement over the same period: plastic use falls from 82.2% to 80.8%,
+    reusable use rises from 16.3% to 17.2% -- changes well within normal variation. D.C. is similarly
+    flat. Maryland's sharp behavioral shift is therefore unlikely to reflect a time trend common to
+    all three jurisdictions.
+  </p>
+
+  <h3>Regression Results</h3>
+
+  <p><strong>Extensive margin</strong> — probability of using each bag type</p>
+
+  <pre style="background:#1e1e1e; color:#d4d4d4; padding:1.2em 1.5em; border-radius:4px; font-size:0.82em; overflow-x:auto; line-height:1.7; margin:1em 0;">reg useplastic postXmd post md va black othrace female aft night organic bonus
+reg usereuse   postXmd post md va black othrace female aft night organic bonus
+reg nobags     postXmd post md va black othrace female aft night organic bonus</pre>
+
+  <table style="width:100%; max-width:580px; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
+    <thead>
+      <tr style="border-bottom:2px solid #333;">
+        <th style="text-align:left; padding:0.5em 0;">Outcome</th>
+        <th style="text-align:right; padding:0.5em;">postXmd</th>
+        <th style="text-align:right; padding:0.5em;">Std. err.</th>
+        <th style="text-align:right; padding:0.5em;">p-value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">useplastic</td>
+        <td style="text-align:right;">−0.419</td>
+        <td style="text-align:right;">0.014</td>
+        <td style="text-align:right;">&lt;0.001</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">usereuse</td>
+        <td style="text-align:right;">+0.327</td>
+        <td style="text-align:right;">0.013</td>
+        <td style="text-align:right;">&lt;0.001</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">nobags</td>
+        <td style="text-align:right;">+0.110</td>
+        <td style="text-align:right;">0.009</td>
+        <td style="text-align:right;">&lt;0.001</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Intensive margin</strong> — bags used, conditional on using any</p>
+
+  <pre style="background:#1e1e1e; color:#d4d4d4; padding:1.2em 1.5em; border-radius:4px; font-size:0.82em; overflow-x:auto; line-height:1.7; margin:1em 0;">reg plastic_int postXmd post md va black othrace female aft night organic bonus
+reg reuse_int   postXmd post md va black othrace female aft night organic bonus</pre>
+
+  <table style="width:100%; max-width:580px; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
+    <thead>
+      <tr style="border-bottom:2px solid #333;">
+        <th style="text-align:left; padding:0.5em 0;">Outcome</th>
+        <th style="text-align:right; padding:0.5em;">postXmd</th>
+        <th style="text-align:right; padding:0.5em;">Std. err.</th>
+        <th style="text-align:right; padding:0.5em;">p-value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">plastic_int</td>
+        <td style="text-align:right;">−0.239</td>
+        <td style="text-align:right;">0.073</td>
+        <td style="text-align:right;">0.001</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.5em 0;">reuse_int</td>
+        <td style="text-align:right;">+0.148</td>
+        <td style="text-align:right;">0.068</td>
+        <td style="text-align:right;">0.031</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Per-person demand</strong> — total bags per shopper</p>
+
+  <pre style="background:#1e1e1e; color:#d4d4d4; padding:1.2em 1.5em; border-radius:4px; font-size:0.82em; overflow-x:auto; line-height:1.7; margin:1em 0;">reg plastic postXmd post md va black othrace female aft night organic bonus
+reg reuse   postXmd post md va black othrace female aft night organic bonus</pre>
+
+  <div style="display:flex; gap:2em; margin:1.5em 0 2em; flex-wrap:wrap; padding:1.2em; background:#f8f8f8; border-left:4px solid #333;">
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">Effect on Plastic Demand</div>
+      <div style="font-size:2em; font-weight:bold;">−1.006 bags</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">Effect on Reusable Demand</div>
+      <div style="font-size:2em; font-weight:bold;">+0.578 bags</div>
+    </div>
+    <div>
+      <div style="font-size:0.78em; color:#888; text-transform:uppercase; letter-spacing:0.06em;">Significance</div>
+      <div style="font-size:2em; font-weight:bold; color:#999;">p &lt; 0.001</div>
+    </div>
+  </div>
+
+  <p>
+    The tax reduced per-person plastic bag demand by roughly one full bag per shopping trip relative
+    to D.C. -- a large effect given that pre-tax demand in Maryland averaged about 1.9 bags per
+    shopper. Reusable bag demand increased by 0.58 bags per trip. Both estimates are highly significant
+    and consistent across the extensive and intensive margin results.
+  </p>
+
+  <h3>Interpretation</h3>
+  <p>
+    The results are consistent across all three margins and with Pigovian tax theory: a small per-unit
+    tax on an externality-generating good produces measurable behavioral change even when the nominal
+    amount is low. The mechanism operates on both margins simultaneously -- fewer shoppers use plastic
+    bags at all, and those who continue do so less intensively. Substitution toward reusable bags and
+    no bags suggests the tax redirected behavior rather than simply extracting revenue.
+  </p>
+  <p>
+    Demographic covariates behave as expected: female shoppers substitute more readily toward reusable
+    bags, store rebate incentives shift behavior at the margin, and organic stores show markedly lower
+    plastic demand -- likely reflecting both shopper selection and smaller basket sizes. These patterns
+    add credibility to the identification by confirming the controls capture real behavioral
+    heterogeneity rather than noise.
+  </p>
+  <p>
+    The primary limitation is the parallel trends assumption. While Virginia's stability provides
+    supporting evidence, the three jurisdictions differ demographically and in baseline bag-use rates.
+    A longer pre-treatment panel would allow an event study specification to formally test whether
+    pre-trends were parallel -- a natural extension with richer data.
+  </p>
+
+</section>
+
+<footer>
+  © 2025 Alan Lamb — Lambcast
+</footer>
+
+
+</body></html>
