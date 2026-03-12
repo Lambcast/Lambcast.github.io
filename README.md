@@ -1,18 +1,24 @@
 # AI Infrastructure & Regional Electricity Demand
-### A Causal Forecasting Framework for the U.S. Power Grid
+### A Forecasting Framework for U.S. Grid Stress
 
 **Alan Lamb | Lambcast Applied Economics | M.S. Applied Economics, University of Maryland | 2026**
 
 ---
 
 ## Research Question
-Do large data center interconnection requests causally shift regional electricity load growth — and can we build a model that forecasts future grid stress from the existing investment pipeline?
+How much has data center investment driven regional electricity demand growth — and can we build a model that forecasts future grid stress from the existing investment pipeline?
 
 ## Methods
-- **Causal identification:** Difference-in-differences with event study design
-- **Treatment variable:** Utility interconnection queue filings (legally binding, precise dates and MW ratings)
-- **Forecasting:** XGBoost with causal estimate as feature, benchmarked against ARIMA and Prophet baselines
-- **Scale:** PySpark for feature engineering on 100M+ row EIA hourly dataset
+- **Identification:** Four-layer strategy producing a credible estimated range across methods
+  - Panel regression with wild cluster bootstrap inference (Stata `boottest`)
+  - Synthetic control — ERCOT as treated unit, treatment date from Bai-Perron structural break test
+  - DiD with low-exposure controls — ISONE and NYISO as cleaner donor pool
+  - Narrative validation — known data center energizations overlaid on synthetic control gap
+- **Treatment variable:** Generation interconnection queue filings (LBL Queued Up 2024 + UMD PJM queue)
+- **Forecasting:** XGBoost benchmarked against ARIMA and Prophet, queue pipeline as primary feature set
+
+## Key Early Finding
+ERCOT electricity demand grew approximately 27% from 2019 to 2025. PJM and MISO remained essentially flat. ERCOT interconnection queue filings reached 97 GW in 2024 — the largest year on record.
 
 ## Geographic Scope
 Three major U.S. electricity markets covering ~70% of national load:
@@ -21,24 +27,24 @@ Three major U.S. electricity markets covering ~70% of national load:
 - **MISO** — Southeast/Midwest (emerging growth corridor)
 
 ## Data Sources
-| Dataset | Source |
-|---|---|
-| EIA Form 930 hourly demand | eia.gov/opendata |
-| PJM interconnection queue 2008–2020 | UMD Economics Dept. (NSF-funded) |
-| PJM live queue 2020–2025 | gridstatus.io |
-| ERCOT large load queue | ERCOT public portal |
-| MISO queue | MISO public API |
-| NOAA weather (HDD/CDD) | NCEI Climate Data Online |
-| BEA regional GDP | BEA regional accounts |
+| Dataset | Source | Status |
+|---|---|---|
+| EIA Form 930 hourly demand | eia.gov/opendata | ✅ 184,102 rows (2019–2025) |
+| UMD PJM Queue 2008–2024 | UMD Economics (NSF-funded) | ✅ In hand |
+| LBL Queued Up 2024 | Lawrence Berkeley National Lab | ✅ In hand |
+| Analysis panel | Built from above | ✅ 252 rows, 3 BAs × 84 months |
+| NOAA weather (HDD/CDD) | NCEI Climate Data Online | Pending |
+| BEA regional GDP | BEA regional accounts | Pending |
+| ERCOT/PJM/MISO large load queue | Public portals | ❌ Not available — documented as policy finding |
 
 ## Project Status
-- [x] Phase 1: Data infrastructure and exploratory analysis
-- [ ] Phase 2: DiD causal identification
-- [ ] Phase 3: Event study and robustness checks
-- [ ] Phase 4: Forecasting model and Hex dashboard
+- [x] Phase 1: Data infrastructure, exploratory analysis, analysis panel built
+- [ ] Phase 2: Four-layer identification strategy
+- [ ] Phase 3: Forecasting model and benchmarking
+- [ ] Phase 4: Hex dashboard and SSRN working paper
 
 ## Tool Stack
-Python, SQL, BigQuery, PySpark, Stata, Hex
+Python, Stata, SQL, BigQuery, PySpark, Hex
 
 ## Publication
 Results and writeups published at [lambcast.net](https://lambcast.net)
