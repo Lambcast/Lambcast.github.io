@@ -1,198 +1,60 @@
 <!DOCTYPE html>
-<!-- saved from url=(0061)file:///C:/Users/alamb/Downloads/forecasting-methodology.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forecasting Methodology – Lambcast</title>
-  <link rel="stylesheet" href="file:///C:/Users/alamb/style.css">
-  <link rel="icon" type="image/x-icon" href="file:///C:/Users/alamb/favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 <header>
-  <h1><a href="file:///C:/Users/alamb/index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
-  <p>Forecasting • Causal Inference • Python / R / SQL / Stata</p>
+  <h1><a href="index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
+  <p>Energy Economics &bull; AI Infrastructure &bull; Applied Econometrics</p>
 </header>
 <nav>
-  <a href="file:///C:/Users/alamb/index.html">Home</a>
-  <a href="file:///C:/Users/alamb/forecasts.html">Forecasts</a>
-  <a href="file:///C:/Users/alamb/essays.html">Essays</a>
-  <a href="file:///C:/Users/alamb/projects.html">Projects</a>
-  <a href="file:///C:/Users/alamb/about.html">About</a>
+  <a href="index.html">Home</a>
+  <a href="research.html">Research</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About</a>
 </nav>
-
 <section>
-
   <h2>Forecasting Methodology</h2>
-
-  <div class="meta">
-    Living document &nbsp;•&nbsp; Last updated: March 2026
-  </div>
-
-  <p style="margin-top:1.5em;">
-    This page documents the tools, frameworks, and process I use to produce forecasts on
-    <a href="https://www.metaculus.com/" target="_blank">Metaculus</a> and other platforms.
-    It is a working reference — updated as my methods evolve — and serves as the methodology
-    backbone for every forecast published on this site.
-  </p>
+  <div class="meta">Living document &nbsp;&bull;&nbsp; Last updated: March 2026</div>
+  <p style="margin-top:1.5em;">This page documents the tools, frameworks, and process I use to produce forecasts on <a href="https://www.metaculus.com/" target="_blank">Metaculus</a> and other platforms. It is a working reference — updated as my methods evolve — and serves as the methodology backbone for every forecast published on this site.</p>
 
   <h3>Core Principles</h3>
-
-  <p>
-    Good forecasting is a discipline, not a talent. The research on superforecasting
-    (Tetlock &amp; Gardner, 2015) identifies a consistent set of habits that separate
-    well-calibrated forecasters from the rest. The foundation is this: <strong>start outside,
-    update inside.</strong>
-  </p>
-
-  <p>
-    The <strong>outside view</strong> anchors every forecast in a reference class — what
-    is the historical base rate for this type of event? How often do incumbents win?
-    How often do economic forecasts issued six months out prove accurate? The outside view
-    is almost always more accurate than intuition, and it is almost always consulted last
-    instead of first.
-  </p>
-
-  <p>
-    The <strong>inside view</strong> then adjusts for specific circumstances: what is
-    unusual about this case, and in which direction does it push the probability? The
-    inside view is where analysis lives, but it is only applied as a deliberate update
-    on a well-anchored prior, not as the starting point.
-  </p>
-
-  <p>
-    Every forecast is then held to a <strong>calibration standard</strong>: are my 70%
-    predictions right about 70% of the time? Metaculus tracks this automatically via
-    Brier scores. A forecaster who claims 90% confidence on everything and is right
-    70% of the time is systematically overconfident and, in expectation, performing
-    worse than someone who simply says 70%.
-  </p>
+  <p>Good forecasting is a discipline, not a talent. The research on superforecasting (Tetlock &amp; Gardner, 2015) identifies a consistent set of habits that separate well-calibrated forecasters from the rest. The foundation is this: <strong>start outside, update inside.</strong></p>
+  <p>The <strong>outside view</strong> anchors every forecast in a reference class — what is the historical base rate for this type of event? How often do incumbents win? How often do economic forecasts issued six months out prove accurate? The outside view is almost always more accurate than intuition, and it is almost always consulted last instead of first.</p>
+  <p>The <strong>inside view</strong> then adjusts for specific circumstances: what is unusual about this case, and in which direction does it push the probability? The inside view is where analysis lives, but it is only applied as a deliberate update on a well-anchored prior, not as the starting point.</p>
+  <p>Every forecast is then held to a <strong>calibration standard</strong>: are my 70% predictions right about 70% of the time? Metaculus tracks this automatically via Brier scores. A forecaster who claims 90% confidence on everything and is right 70% of the time is systematically overconfident and, in expectation, performing worse than someone who simply says 70%.</p>
 
   <h3>The Forecasting Process</h3>
-
-  <p>
-    <strong>1. Clarify the question.</strong> Resolution criteria matter more than the
-    question headline. Read the fine print. A question about whether a party "wins the
-    most seats" resolves differently depending on whether it means FPTP seats,
-    proportional seats, or total seats. Never forecast a question you have not read carefully.
-  </p>
-
-  <p>
-    <strong>2. Establish the reference class.</strong> What category of event is this?
-    What is the base rate? For elections: how often does the polling front-runner win?
-    For economic indicators: how often do consensus forecasts prove accurate at this
-    horizon? For geopolitical events: what is the historical frequency of this type of
-    outcome? Write the base rate down before looking at any specifics.
-  </p>
-
-  <p>
-    <strong>3. Decompose the question.</strong> Break complex questions into independent
-    sub-components. Estimate each separately, then recombine. This forces explicit
-    reasoning about each driver and prevents narrative-driven overconfidence in a single
-    story.
-  </p>
-
-  <p>
-    <strong>4. Consult prediction markets and community forecasts.</strong> Metaculus
-    community medians, Polymarket prices, and Manifold Markets provide aggregated
-    information from many forecasters. These are not automatically correct, but they are
-    a strong prior. Departures from the community require explicit justification.
-  </p>
-
-  <p>
-    <strong>5. Apply quantitative models where data permits.</strong> For questions with
-    sufficient historical data — commodity prices, macroeconomic indicators, electoral
-    outcomes — formal models (Monte Carlo, time series, regression) outperform intuition.
-    The silver price forecast on this site uses a macro-adjusted Monte Carlo simulation
-    with 10,000 paths. Where models are not feasible, structured estimation (Fermi
-    decomposition) imposes discipline on intuitive reasoning.
-  </p>
-
-  <p>
-    <strong>6. Pre-mortem.</strong> Before submitting, ask: what would have to be true
-    for this forecast to be badly wrong? If the answer is "nothing plausible," the
-    forecast is probably overconfident.
-  </p>
-
-  <p>
-    <strong>7. Update on new information.</strong> A forecast is not a commitment.
-    Revise when evidence warrants. Track what changed and why in the revision log on
-    each forecast page.
-  </p>
+  <p><strong>1. Clarify the question.</strong> Resolution criteria matter more than the question headline. Read the fine print. A question about whether a party "wins the most seats" resolves differently depending on whether it means FPTP seats, proportional seats, or total seats. Never forecast a question you have not read carefully.</p>
+  <p><strong>2. Establish the reference class.</strong> What category of event is this? What is the base rate? For elections: how often does the polling front-runner win? For economic indicators: how often do consensus forecasts prove accurate at this horizon? For geopolitical events: what is the historical frequency of this type of outcome? Write the base rate down before looking at any specifics.</p>
+  <p><strong>3. Decompose the question.</strong> Break complex questions into independent sub-components. Estimate each separately, then recombine. This forces explicit reasoning about each driver and prevents narrative-driven overconfidence in a single story.</p>
+  <p><strong>4. Consult prediction markets and community forecasts.</strong> Metaculus community medians, Polymarket prices, and Manifold Markets provide aggregated information from many forecasters. These are not automatically correct, but they are a strong prior. Departures from the community require explicit justification.</p>
+  <p><strong>5. Apply quantitative models where data permits.</strong> For questions with sufficient historical data — commodity prices, macroeconomic indicators, electoral outcomes — formal models (Monte Carlo, time series, regression) outperform intuition. The silver price forecast on this site uses a macro-adjusted Monte Carlo simulation with 10,000 paths. Where models are not feasible, structured estimation (Fermi decomposition) imposes discipline on intuitive reasoning.</p>
+  <p><strong>6. Pre-mortem.</strong> Before submitting, ask: what would have to be true for this forecast to be badly wrong? If the answer is "nothing plausible," the forecast is probably overconfident.</p>
+  <p><strong>7. Update on new information.</strong> A forecast is not a commitment. Revise when evidence warrants. Track what changed and why in the revision log on each forecast page.</p>
 
   <h3>Quantitative Toolkit</h3>
-
-  <p>
-    <strong>Python</strong> is the primary modeling environment. Key libraries:
-    <code>numpy</code> and <code>scipy</code> for distributions and simulation,
-    <code>pandas</code> for data manipulation, <code>statsmodels</code> for regression
-    and time series, <code>matplotlib</code> for visualization. Monte Carlo simulations
-    are run in Python for all forecasts involving continuous outcomes.
-  </p>
-
-  <p>
-    <strong>R</strong> for Bayesian updating and forecasting packages. The
-    <code>forecast</code> and <code>prophet</code> packages handle time series
-    decomposition. <code>brms</code> for Bayesian hierarchical models where priors
-    need to be made explicit.
-  </p>
-
-  <p>
-    <strong>Stata</strong> for econometric analysis supporting forecasts that draw
-    on causal inference — difference-in-differences, regression discontinuity,
-    instrumental variables. When a forecast depends on an estimated treatment effect,
-    Stata handles the underlying identification.
-  </p>
-
-  <p>
-    <strong>SQL / DuckDB</strong> for constructing and querying the datasets that
-    feed models. Large panel datasets and historical time series are queried in
-    DuckDB before being passed to Python or R for analysis.
-  </p>
+  <p><strong>Python</strong> is the primary modeling environment. Key libraries: <code>numpy</code> and <code>scipy</code> for distributions and simulation, <code>pandas</code> for data manipulation, <code>statsmodels</code> for regression and time series, <code>matplotlib</code> for visualization. Monte Carlo simulations are run in Python for all forecasts involving continuous outcomes.</p>
+  <p><strong>R</strong> for Bayesian updating and forecasting packages. The <code>forecast</code> and <code>prophet</code> packages handle time series decomposition. <code>brms</code> for Bayesian hierarchical models where priors need to be made explicit.</p>
+  <p><strong>Stata</strong> for econometric analysis supporting forecasts that draw on causal inference — difference-in-differences, regression discontinuity, instrumental variables. When a forecast depends on an estimated treatment effect, Stata handles the underlying identification.</p>
+  <p><strong>SQL / DuckDB</strong> for constructing and querying the datasets that feed models. Large panel datasets and historical time series are queried in DuckDB before being passed to Python or R for analysis.</p>
 
   <h3>Data Sources</h3>
-
-  <p>
-    <strong>Macroeconomic data:</strong> FRED (Federal Reserve Bank of St. Louis),
-    World Bank Open Data, IMF World Economic Outlook database, BLS, BEA.
-  </p>
-
-  <p>
-    <strong>Financial data:</strong> Yahoo Finance via <code>yfinance</code>,
-    COMEX futures data for commodity forecasts, FRED for interest rates and
-    monetary aggregates.
-  </p>
-
-  <p>
-    <strong>Election and political data:</strong> Wikipedia election archives,
-    IDEA Voter Turnout Database, V-Dem dataset for institutional variables,
-    FiveThirtyEight historical polling archives.
-  </p>
-
-  <p>
-    <strong>Prediction market signals:</strong> Metaculus community median,
-    Polymarket contract prices, Manifold Markets. Used as calibration benchmarks,
-    not as substitutes for independent analysis.
-  </p>
+  <p><strong>Macroeconomic data:</strong> FRED (Federal Reserve Bank of St. Louis), World Bank Open Data, IMF World Economic Outlook database, BLS, BEA.</p>
+  <p><strong>Financial data:</strong> Yahoo Finance via <code>yfinance</code>, COMEX futures data for commodity forecasts, FRED for interest rates and monetary aggregates.</p>
+  <p><strong>Election and political data:</strong> Wikipedia election archives, IDEA Voter Turnout Database, V-Dem dataset for institutional variables, FiveThirtyEight historical polling archives.</p>
+  <p><strong>Prediction market signals:</strong> Metaculus community median, Polymarket contract prices, Manifold Markets. Used as calibration benchmarks, not as substitutes for independent analysis.</p>
 
   <h3>Calibration and Scoring</h3>
-
-  <p>
-    Forecasts are evaluated using the <strong>Brier score</strong>: the mean squared
-    error between predicted probabilities and outcomes (0 or 1). A perfect forecaster
-    scores 0; random guessing scores 0.25 on binary questions. Metaculus also reports
-    a <strong>log score</strong>, which penalizes overconfident wrong forecasts more
-    severely. Both metrics reward calibration and penalize false precision.
-  </p>
-
-  <p>
-    My Metaculus calibration curve and tournament performance are tracked on my
-    <a href="https://www.metaculus.com/" target="_blank">Metaculus profile</a>.
-    The goal is not to maximize the number of forecasts but to maintain calibration
-    across domains — a harder and more informative target.
-  </p>
+  <p>Forecasts are evaluated using the <strong>Brier score</strong>: the mean squared error between predicted probabilities and outcomes (0 or 1). A perfect forecaster scores 0; random guessing scores 0.25 on binary questions. Metaculus also reports a <strong>log score</strong>, which penalizes overconfident wrong forecasts more severely. Both metrics reward calibration and penalize false precision.</p>
+  <p>My Metaculus calibration curve and tournament performance are tracked on my <a href="https://www.metaculus.com/" target="_blank">Metaculus profile</a>. The goal is not to maximize the number of forecasts but to maintain calibration across domains — a harder and more informative target.</p>
 
   <h3>Current Forecast Log</h3>
-
   <table style="width:100%; border-collapse:collapse; font-size:0.88em; margin:1.2em 0;">
     <thead>
       <tr style="border-bottom:2px solid #333;">
@@ -205,52 +67,30 @@
     </thead>
     <tbody>
       <tr style="border-bottom:1px solid #eee;">
-        <td style="padding:0.5em 0;"><a href="file:///C:/Users/alamb/Downloads/silver-april-2026/silver-april-2026.html">Silver: highest price per troy oz, April 2026</a></td>
+        <td style="padding:0.5em 0;"><a href="forecasts/silver-april-2026/silver-april-2026.html">Silver: highest price per troy oz, April 2026</a></td>
         <td style="text-align:right;">$115 median</td>
         <td style="text-align:right;">Metaculus</td>
         <td style="text-align:right;">Apr 30, 2026</td>
-        <td style="text-align:right;">Open</td>
+        <td style="text-align:right;">Resolved</td>
       </tr>
       <tr style="border-bottom:1px solid #eee;">
-        <td style="padding:0.5em 0;"><a href="file:///C:/Users/alamb/Downloads/candidates-2026/candidates-2026.html">2026 FIDE Candidates Tournament winner</a></td>
+        <td style="padding:0.5em 0;"><a href="forecasts/candidates-2026/candidates-2026.html">2026 FIDE Candidates Tournament winner</a></td>
         <td style="text-align:right;">Caruana 26%</td>
         <td style="text-align:right;">Metaculus</td>
         <td style="text-align:right;">Apr 16, 2026</td>
-        <td style="text-align:right;">Open</td>
+        <td style="text-align:right;">Resolved</td>
       </tr>
     </tbody>
   </table>
 
   <h3>Reading List</h3>
-
-  <p>
-    <strong>Superforecasting</strong> (Tetlock &amp; Gardner, 2015) — the empirical
-    case for disciplined probabilistic reasoning and the habits of top forecasters.
-    Required reading before anything else.
-  </p>
-
-  <p>
-    <strong>The Signal and the Noise</strong> (Silver, 2012) — accessible treatment
-    of Bayesian updating, model building, and the difference between noise and
-    genuine information across domains from elections to weather.
-  </p>
-
-  <p>
-    <strong>Thinking in Bets</strong> (Duke, 2018) — decision-making under uncertainty,
-    separating outcome quality from decision quality. Useful corrective against
-    resulting (judging decisions by outcomes rather than process).
-  </p>
-
-  <p>
-    <strong>Forecasting: Principles and Practice</strong> (Hyndman &amp; Athanasopoulos,
-    free online) — the technical reference for time series methods in R.
-  </p>
-
+  <p><strong>Superforecasting</strong> (Tetlock &amp; Gardner, 2015) — the empirical case for disciplined probabilistic reasoning and the habits of top forecasters. Required reading before anything else.</p>
+  <p><strong>The Signal and the Noise</strong> (Silver, 2012) — accessible treatment of Bayesian updating, model building, and the difference between noise and genuine information across domains from elections to weather.</p>
+  <p><strong>Thinking in Bets</strong> (Duke, 2018) — decision-making under uncertainty, separating outcome quality from decision quality. Useful corrective against resulting (judging decisions by outcomes rather than process).</p>
+  <p><strong>Forecasting: Principles and Practice</strong> (Hyndman &amp; Athanasopoulos, free online) — the technical reference for time series methods in R.</p>
 </section>
-
 <footer>
-  © 2025 Alan Lamb — Lambcast
+  &copy; 2026 Alan Lamb &ndash; Lambcast &nbsp;&bull;&nbsp; <a href="forecasts.html" style="color:#999;">Forecasting practice</a>
 </footer>
-
-
-</body></html>
+</body>
+</html>
