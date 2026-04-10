@@ -3,46 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forecasts – Lambcast</title>
+  <title>Forecasting Practice – Lambcast</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 <header>
   <h1><a href="index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
-  <p>Forecasting • Causal Inference • Python / R / SQL / Stata</p>
+  <p>Energy Economics &bull; AI Infrastructure &bull; Applied Econometrics</p>
 </header>
 <nav>
   <a href="index.html">Home</a>
-  <a href="forecasts.html">Forecasts</a>
-  <a href="papers.html">Papers &amp; Research</a>
+  <a href="research.html">Research</a>
   <a href="projects.html">Projects</a>
   <a href="about.html">About</a>
 </nav>
 <section>
-  <h2>Active Forecasts</h2>
-  <p style="color:#555; font-size:0.95em; margin-bottom:2em;">
-  This page tracks my ongoing forecasting practice across a range of domains. 
-  Some questions are recreational (e.g., chess tournaments), while others involve 
-  structured modeling and quantitative analysis. The goal is to demonstrate 
-  calibration, probabilistic reasoning, and consistent updating — the core skills 
-  behind forecasting in applied economics, decision science, and technical 
-  environments. Forecasts are updated weekly as new information arrives.
-</p>
-  <p style="color:#555; font-size:0.95em; margin-bottom:2em;">
-    All forecasts are submitted to structured prediction platforms and updated weekly as new data arrives.
-    Calibration record tracked on <a href="https://www.metaculus.com" target="_blank">Metaculus</a>.
-  </p>
-  <h3 style="font-size:0.85em; letter-spacing:0.1em; text-transform:uppercase; color:#888; border-bottom:1px solid #ddd; padding-bottom:0.4em; margin-bottom:1.5em;">Metaculus Cup — Spring 2026</h3>
+  <h2>Forecasting Practice</h2>
+  <p>In early 2026 I entered the Metaculus Cup as a way to build a structured forecasting practice alongside my research. The two questions below resolved in April 2026. I got one wrong in a way worth explaining.</p>
+  <p>What I learned from this: forecasting as a practice rewards something different from what I expected. The skill is real, but it accrues slowly over hundreds of questions and depends almost entirely on coming back to update every time new information arrives. It's less like research — where depth of analysis compounds — and more like a sport where the training is the thing. I'm not abandoning it, but it's not the center of this site. The methodology work that came out of building these models was worth doing regardless of the outcomes.</p>
+</section>
+<section>
+  <h2>Resolved Forecasts</h2>
 
   <div class="forecast">
-    <h3>
-      <a href="forecasts/silver-april-2026/silver-april-2026.html" style="text-decoration:none; color:inherit;">
-        Silver Price: Highest Price per Troy Ounce in April 2026
-      </a>
-    </h3>
+    <h3>Silver Price: Highest Price per Troy Ounce in April 2026</h3>
     <div class="meta">
-      Last updated: Feb 28, 2026 &nbsp;•&nbsp; Resolves: April 30, 2026 &nbsp;•&nbsp; Platform: Metaculus
+      Submitted: Feb 28, 2026 &nbsp;&bull;&nbsp; Resolved: April 30, 2026 &nbsp;&bull;&nbsp; Platform: Metaculus
     </div>
     <div style="display:flex; gap:2em; margin:1.2em 0; flex-wrap:wrap;">
       <div>
@@ -54,36 +41,19 @@
         <div style="font-size:1.8em; font-weight:bold;">$105 – $126</div>
       </div>
       <div>
-        <div style="font-size:0.8em; color:#888; text-transform:uppercase; letter-spacing:0.05em;">Community Median</div>
-        <div style="font-size:1.8em; font-weight:bold; color:#888;">$95.2</div>
-      </div>
-      <div>
-        <div style="font-size:0.8em; color:#888; text-transform:uppercase; letter-spacing:0.05em;">Current Price</div>
-        <div style="font-size:1.8em; font-weight:bold; color:#555;">$92.68</div>
+        <div style="font-size:0.8em; color:#888; text-transform:uppercase; letter-spacing:0.05em;">Resolved At</div>
+        <div style="font-size:1.8em; font-weight:bold; color:#c0392b;">[FILL IN]</div>
       </div>
     </div>
-    <p>
-      Silver entered 2026 in an unprecedented structural regime — US Critical Minerals designation,
-      China export controls, and AI/solar industrial demand converging simultaneously.
-      With silver at $92.68 and gold at $5,230, a macro-adjusted Monte Carlo simulation
-      (10,000 paths, gold β=2.29, R²=0.72) assigns only ~10% probability the April high stays
-      below $97. The community median of $95.2 implies near-zero upside from current prices.
-    </p>
-    <p><a href="forecasts/silver-april-2026/silver-april-2026.html">Full methodology and model output →</a></p>
-    <div style="margin-top:1.2em; padding:0.8em 1em; background:#f8f8f8; border-left:3px solid #ccc; font-size:0.88em;">
-      <strong>Revision log</strong><br>
-      <span style="color:#555;">Feb 28, 2026 — Initial forecast: $115 median, $105–$126 (80% CI)</span>
-    </div>
+    <p>I built a Monte Carlo model (10,000 paths, gold β=2.29, R²=0.72) calibrated on the structural case for silver in early 2026: US Critical Minerals designation, China export controls, and AI/solar demand converging. The model assigned only ~10% probability to the April high staying below $97. It was wrong.</p>
+    <p><strong>What happened:</strong> [Fill in the actual resolution and what the model missed — tariff reversal, macro shift, whatever drove the outcome. One honest paragraph is enough.]</p>
+    <p><a href="forecasts/silver-april-2026/silver-april-2026.html">Full methodology →</a></p>
   </div>
 
   <div class="forecast" style="margin-top:2.5em;">
-    <h3>
-      <a href="forecasts/candidates-2026/candidates-2026.html" style="text-decoration:none; color:inherit;">
-        Who Will Win the 2026 FIDE Candidates Tournament?
-      </a>
-    </h3>
+    <h3>Who Will Win the 2026 FIDE Candidates Tournament?</h3>
     <div class="meta">
-      Last updated: Feb 28, 2026 &nbsp;•&nbsp; Resolves: April 16, 2026 &nbsp;•&nbsp; Platform: Metaculus
+      Submitted: Feb 28, 2026 &nbsp;&bull;&nbsp; Resolved: April 16, 2026 &nbsp;&bull;&nbsp; Platform: Metaculus
     </div>
     <div style="display:flex; gap:2em; margin:1.2em 0; flex-wrap:wrap;">
       <div>
@@ -95,37 +65,18 @@
         <div style="font-size:1.8em; font-weight:bold;">26%</div>
       </div>
       <div>
-        <div style="font-size:0.8em; color:#888; text-transform:uppercase; letter-spacing:0.05em;">Community</div>
-        <div style="font-size:1.8em; font-weight:bold; color:#888;">29.6%</div>
-      </div>
-      <div>
-        <div style="font-size:0.8em; color:#888; text-transform:uppercase; letter-spacing:0.05em;">Biggest Disagreement</div>
-        <div style="font-size:1.8em; font-weight:bold; color:#555;">Nakamura -10pt</div>
+        <div style="font-size:0.8em; color:#888; text-transform:uppercase; letter-spacing:0.05em;">Winner</div>
+        <div style="font-size:1.8em; font-weight:bold; color:#555;">[FILL IN]</div>
       </div>
     </div>
-    <p>
-      An 8-player double round-robin in Cyprus, March 29 – April 16. Rather than relying on Elo alone,
-      this forecast uses a weighted scoring model emphasizing recent classical form (30%) and
-      head-to-head record vs the field (30%). The biggest departure from the community: Nakamura
-      down 10 points due to 8 months of inactivity against sub-2100 opposition. Praggnanandhaa
-      up 6 points as the dominant classical performer of 2025.
-    </p>
-    <p><a href="forecasts/candidates-2026/candidates-2026.html">Full methodology and model output →</a></p>
-    <div style="margin-top:1.2em; padding:0.8em 1em; background:#f8f8f8; border-left:3px solid #ccc; font-size:0.88em;">
-      <strong>Revision log</strong><br>
-      <span style="color:#555;">Feb 28, 2026 — Initial forecast submitted to Metaculus</span>
-    </div>
+    <p>I weighted recent classical form (30%) and head-to-head record against the field (30%) over raw Elo. The biggest departures from the community: Nakamura down 10 points for 8 months of inactivity against weak opposition, Praggnanandhaa up 6 as the dominant classical performer of 2025.</p>
+    <p><strong>What happened:</strong> [One sentence on the result and whether the model's logic held even if the pick was wrong.]</p>
+    <p><a href="forecasts/candidates-2026/candidates-2026.html">Full methodology →</a></p>
   </div>
 
 </section>
-<section>
-  <h2>Resolved Forecasts</h2>
-  <p style="color:#666;">
-    No resolved forecasts yet. Once a question closes, resolved entries move here with a post-mortem.
-  </p>
-</section>
 <footer>
-  © 2025 Alan Lamb — Lambcast
+  &copy; 2026 Alan Lamb &ndash; Lambcast
 </footer>
 </body>
 </html>

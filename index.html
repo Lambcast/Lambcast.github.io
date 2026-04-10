@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lambcast – Forecasting & Applied Economics</title>
+  <title>Lambcast – Energy Economics & Applied Econometrics</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <meta property="og:title" content="Lambcast">
-  <meta property="og:description" content="Forecasting pipelines, causal inference, and applied economics by Alan Lamb.">
+  <meta property="og:description" content="Energy economics, AI infrastructure, and applied econometrics by Alan Lamb.">
   <meta property="og:image" content="https://lambcast.net/og-lamb-a.png">
   <meta property="og:url" content="https://lambcast.net">
   <meta name="twitter:card" content="summary_large_image">
@@ -15,33 +15,35 @@
 <body>
 <header>
   <h1>Lambcast</h1>
-  <p>Forecasting • Causal Inference • Python / R / SQL / Stata</p>
+  <p>Energy Economics &bull; AI Infrastructure &bull; Applied Econometrics</p>
 </header>
 <nav>
   <a href="index.html">Home</a>
-  <a href="forecasts.html">Forecasts</a>
-  <a href="papers.html">Papers &amp; Research</a>
+  <a href="research.html">Research</a>
   <a href="projects.html">Projects</a>
   <a href="about.html">About</a>
 </nav>
 <section>
-  <h2>Welcome</h2>
-  <p>I work at the intersection of forecasting, causal inference, and applied economics. My focus is on building transparent, end‑to‑end analytical workflows: data construction, model design, identification strategy, and interpretation. The goal is simple—produce results that are reproducible, defensible, and useful.</p>
-  <p>This site collects that work: forecasting pipelines, causal evaluations, and the underlying Python, R, and SQL that make the analysis possible.</p>
+  <h2>About This Site</h2>
+  <p>I'm Alan Lamb, an applied economist focused on energy markets and AI infrastructure. I'm completing an M.S. in Applied Economics at the University of Maryland. This site collects my research, writing, and technical work — papers, causal analyses, and software I've built. The reasoning is visible, the code is public, and the limitations are documented.</p>
 </section>
 <section>
-  <h2>What I Do</h2>
-  <p>I build forecasting models and causal inference frameworks grounded in econometric rigor. My work includes time‑series forecasting, difference‑in‑differences, event studies, and synthetic control designs applied to real economic and policy questions. Each project includes full data preparation, model construction, and methodological documentation.</p>
-  <p>The approach is consistent across domains: clear assumptions, transparent uncertainty, and models designed to generalize. Whether the problem is a commodity forecast, a demand model, or a policy evaluation, the objective is the same—extract signal from data and quantify how the world is likely to change.</p>
-</section>
-<section>
-  <h2>Latest Work</h2>
-  <p><a href="forecasts.html">Silver price forecast, April 2026</a> — a Monte Carlo forecasting model incorporating macro factors, cross‑asset relationships, and recent volatility structure. The model runs 10,000 simulated paths and calibrates drift and variance using a rolling six‑month window.</p>
-  <p><a href="forecasts.html">2026 FIDE Candidates Tournament</a> — a performance model combining Elo trends, recent form, head‑to‑head records, and historical tournament outcomes. The model produces player‑level expected scores and identifies where projections diverge from historical baselines.</p>
-  <p>Current flagship project: <a href="projects.html">AI Infrastructure & Regional Electricity Demand</a> — a causal analysis of data center investment and regional electricity demand growth across PJM, ERCOT, and MISO, using a four-method identification strategy and a forward-looking grid stress forecasting pipeline.</p>
+  <h2>Recent Work</h2>
+
+  <h3><a href="research.html">AI Infrastructure and Regional Electricity Demand: Evidence from U.S. Interconnection Queues</a></h3>
+  <p>Between 2019 and 2025, electricity demand in ERCOT grew 27 percent while PJM and MISO were essentially flat. This paper asks how much of that divergence data center investment can explain. Using a four-method identification strategy — panel regression, synthetic control, difference-in-differences, and narrative validation — I estimate a 34.8 index-point divergence in ERCOT minimum hourly demand above a synthetic counterfactual. The paper also documents the absence of public load-side queue data as a policy finding.</p>
+  <p><a href="https://ssrn.com/abstract=6446446" target="_blank">Read on SSRN</a> &nbsp;&bull;&nbsp; <a href="https://github.com/Lambcast/ai-infrastructure-regional-electricity-demand" target="_blank">GitHub</a> &nbsp;&bull;&nbsp; <a href="https://app.hex.tech/019d202f-da81-7007-97ee-426ecaa0225e/app/AI-infrastructure-Regional-Electricity-Demand-Evidence-from-US-Interconnection-Queues-032nXU0Qyl37dzoD7TiIpZ/latest" target="_blank">Interactive Dashboard</a></p>
+  <p style="color:#666; font-size:0.9em;">March 2026 &bull; University of Maryland &bull; Synthetic Control &bull; DiD &bull; Panel Regression &bull; ARIMA &bull; XGBoost</p>
+
+  <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
+
+  <h3><a href="https://bearing.fyi" target="_blank">Bearing</a></h3>
+  <p>A mobile-first daily intelligence tool I designed and built solo. Bearing delivers a personalized morning brief that connects your work, reading, and projects to what's happening in the world. It runs on React, Supabase, and the Claude API, with Stripe for payments and Vercel for deployment — built from zero to fully deployed with auth, AI, and cross-device sync.</p>
+  <p><a href="projects.html">More about Bearing →</a></p>
+  <p style="color:#666; font-size:0.9em;">2026 &bull; React &bull; Vite &bull; Supabase &bull; Claude API &bull; Stripe &bull; Vercel</p>
 </section>
 <footer>
-  © 2026 Alan Lamb — Lambcast
+  &copy; 2026 Alan Lamb &ndash; Lambcast &nbsp;&bull;&nbsp; <a href="forecasts.html" style="color:#999;">Forecasting practice</a>
 </footer>
 </body>
 </html>

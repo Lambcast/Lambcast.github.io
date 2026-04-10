@@ -3,81 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects &ndash; Lambcast</title>
+  <title>Projects – Lambcast</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <meta property="og:title" content="Lambcast">
-  <meta property="og:description" content="Forecasting, applied economics, and policy analysis by Alan Lamb.">
+  <meta property="og:title" content="Lambcast – Projects">
+  <meta property="og:description" content="Software and analytical projects by Alan Lamb.">
   <meta property="og:image" content="https://lambcast.net/og-lamb-a.png">
-  <meta property="og:url" content="https://lambcast.net">
+  <meta property="og:url" content="https://lambcast.net/projects.html">
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <header>
   <h1><a href="index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
-  <p>Forecasting &bull; Causal Inference &bull; Python / R / SQL / Stata</p>
+  <p>Energy Economics &bull; AI Infrastructure &bull; Applied Econometrics</p>
 </header>
 <nav>
   <a href="index.html">Home</a>
-  <a href="forecasts.html">Forecasts</a>
-  <a href="papers.html">Papers &amp; Research</a>
+  <a href="research.html">Research</a>
   <a href="projects.html">Projects</a>
   <a href="about.html">About</a>
 </nav>
 <section>
-  <p>
-    End-to-end quantitative projects in forecasting, causal inference, and applied economics.
-    Each project includes full methodology, code, and documented reasoning.
-  </p>
+  <p>Software I've built and analyses I've run end-to-end. Each project includes methodology, code, and documented reasoning.</p>
 </section>
 <section>
   <h2>Projects</h2>
 
-  <h3>AI Infrastructure and Regional Electricity Demand: Evidence from U.S. Interconnection Queues</h3>
+  <h3><a href="https://bearing.fyi" target="_blank">Bearing</a></h3>
+  <p>A mobile-first Progressive Web App built as a daily intelligence and orientation tool. The core question Bearing asks is whether you're still pointed the right way — it delivers a personalized morning brief that connects your work, reading, and projects to what's happening in the world.</p>
+  <p>Built solo from zero to a fully deployed product with authentication, payments, AI features, and cross-device sync. The stack is React + Vite (PWA, installable from the browser on iOS and Android), Supabase for the database and auth, the Claude API for all AI features routed through a secure edge function, Stripe for subscriptions, and Vercel for deployment. The founding member tier (first 500 users get premium free) is handled entirely by a Supabase database trigger.</p>
   <p>
-    Between 2019 and 2025, electricity demand in Texas grew by roughly 27 percent. In PJM and MISO &mdash;
-    the two largest electricity markets in the country &mdash; demand was essentially flat. That divergence
-    coincides with the largest surge in data center investment in American history.
+    <a href="https://bearing.fyi" target="_blank">bearing.fyi</a>
+    &nbsp;&bull;&nbsp;
+    <a href="https://github.com/Lambcast/the-brief" target="_blank">GitHub</a>
   </p>
+  <p style="color:#666; font-size:0.9em;">2026 &bull; React &bull; Vite &bull; Supabase &bull; Claude API &bull; Stripe &bull; Vercel &bull; JavaScript &bull; TypeScript &bull; SQL</p>
+
+  <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
+
+  <h3>AI Infrastructure and Regional Electricity Demand</h3>
+  <p>Causal analysis of data center investment and regional electricity demand growth across ERCOT, PJM, and MISO, using a four-method identification strategy and a three-model forecasting pipeline extended through 2027. The full methodology and results are in the working paper.</p>
   <p>
-    This project asks how much of the divergence data center investment can explain, and whether the existing
-    investment pipeline is large enough to stress the grid in ways that current planning models are not built
-    to anticipate.
-  </p>
-  <p>
-    The core problem is a data gap. Every major U.S. electricity market maintains an internal queue of data
-    center developers requesting grid connections at scale. None of them make it public. What is public is the
-    generation-side queue &mdash; filings made by power plant developers seeking to connect new supply. This
-    project uses those filings as a proxy for where data center load is being built, since the generation is
-    being requested primarily to serve that load.
-  </p>
-  <p>
-    The method is four layers, not one: panel regression, synthetic control, difference-in-differences with
-    low-exposure control regions, and a narrative check against known data center opening dates. No single
-    method is clean enough to carry the result alone. Where all four point the same direction despite failing
-    differently, that convergence is the evidence.
-  </p>
-  <p>
-    The headline result comes from minimum hourly demand &mdash; the lowest point electricity consumption
-    reaches in a given month, typically around 3am on a mild spring morning. That floor has been rising in
-    Texas in a way that weather cannot explain. Data centers run continuously. Their load signature shows up
-    precisely there. The synthetic control produces a 34.8 index-point gap between actual ERCOT minimum demand
-    and what a counterfactual built from low-exposure regions predicts it would have reached without the
-    data center surge.
-  </p>
-  <p>
-    California serves as a check. Same method, same time period, a grid that also received significant data
-    center investment. No structural break detected, no credible gap. The approach finds a signal where the
-    institutional story predicts one and finds nothing where it does not.
-  </p>
-  <p>
-    A three-model forecasting pipeline &mdash; ARIMA, Prophet, and XGBoost &mdash; extends the analysis
-    through 2027 using ERCOT zone-level data. The gap between the baseline forecast and the model that
-    incorporates queue filings measures the informational value of the proxy. The uncertainty that remains
-    after incorporating it measures what better public data would reduce.
-  </p>
-  <p>
-    <a href="papers.html">Full paper and SSRN link</a>
+    <a href="research.html">Working paper →</a>
     &nbsp;&bull;&nbsp;
     <a href="https://github.com/Lambcast/ai-infrastructure-regional-electricity-demand" target="_blank">GitHub</a>
     &nbsp;&bull;&nbsp;
@@ -88,16 +55,16 @@
   <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
 
   <h3><a href="projects/olist/olist-ecommerce-analysis.html">E-Commerce Analytics: Olist Brazilian Marketplace</a></h3>
-  <p>SQL analysis of 100,000 orders &mdash; growth trends, customer retention, delivery performance, and review score drivers. Built with DuckDB and Python.</p>
+  <p>SQL analysis of 100,000 orders — growth trends, customer retention, delivery performance, and review score drivers. Built with DuckDB and Python.</p>
   <p style="color:#666; font-size:0.9em;">March 2026 &bull; SQL &bull; Python &bull; DuckDB</p>
 
-  <h3><a href="projects/bag-tax/bag-tax-did.html">Policy Impact Analysis: Bag Tax Difference&#8209;in&#8209;Differences</a></h3>
-  <p>Econometric evaluation of a municipal bag tax using a clean DiD design &mdash; estimating causal effects on bag usage, retailer behavior, and environmental outcomes.</p>
+  <h3><a href="projects/bag-tax/bag-tax-did.html">Policy Impact Analysis: Bag Tax Difference-in-Differences</a></h3>
+  <p>Econometric evaluation of a municipal bag tax using a clean DiD design — estimating causal effects on bag usage, retailer behavior, and environmental outcomes.</p>
   <p style="color:#666; font-size:0.9em;">March 2026 &bull; Econometrics &bull; DiD &bull; Python</p>
 
 </section>
 <footer>
-  &copy; 2025 Alan Lamb &ndash; Lambcast
+  &copy; 2026 Alan Lamb &ndash; Lambcast &nbsp;&bull;&nbsp; <a href="forecasts.html" style="color:#999;">Forecasting practice</a>
 </footer>
 </body>
 </html>
