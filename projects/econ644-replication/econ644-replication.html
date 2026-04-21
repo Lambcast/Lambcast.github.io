@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Replication: Political Economy at Any Speed – Lambcast</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+</head>
+<body>
+<header>
+  <h1><a href="../../index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
+  <p>Energy Economics &bull; AI Infrastructure &bull; Applied Econometrics</p>
+</header>
+<nav>
+  <a href="../../index.html">Home</a>
+  <a href="../../research.html">Research</a>
+  <a href="../../projects.html">Projects</a>
+  <a href="../../about.html">About</a>
+</nav>
+
+<section>
+  <h2>Replication: Political Economy at Any Speed</h2>
+  <div class="meta">
+    ECON 644 &nbsp;&bull;&nbsp; University of Maryland, February 2026 &nbsp;&bull;&nbsp;
+    Makowsky &amp; Stratmann (2009) &nbsp;&bull;&nbsp; Tools: Stata
+  </div>
+
+  <p style="margin-top:1.5em;">A full replication of Makowsky and Stratmann's "Political Economy at Any Speed: What Determines Traffic Citations?" using the authors' original dataset of 68,357 Massachusetts speeding stops from 2001. The paper asks whether traffic enforcement reflects objective law enforcement or serves fiscal and political objectives — and finds strong evidence for the latter.</p>
+
+  <h3>Research Question</h3>
+  <p>Do speeding tickets reflect the severity of the violation, or are they shaped by local fiscal conditions and the political costs of ticketing different drivers? Makowsky and Stratmann argue that officers act as agents of revenue-maximizing municipalities: they ticket out-of-town and out-of-state drivers at higher rates because those drivers cannot vote locally, and they respond to municipal fiscal pressure when deciding whether to issue a citation or a warning.</p>
+
+  <h3>Key Findings</h3>
+  <p>The replication confirms all main results. Out-of-town drivers face an 11 percentage point higher citation probability and out-of-state drivers face a 10 percentage point higher probability relative to local drivers — both highly significant across all specifications. Only 10.97% of fines issued to drivers going 10 or more MPH over the limit were congruent with the statutory formula, meaning nearly 89% reflected officer discretion. Local drivers received tickets in 31% of stops; out-of-state drivers in 66%. Among those ticketed, local drivers paid an average of $117 versus $127 for out-of-state drivers — matching the paper's reported figures of $118 and $126 to within rounding.</p>
+  <p>The municipal fiscal results also replicate. Towns with failed Proposition 2½ override referenda issue significantly more citations to non-local drivers. Each log-point increase in courthouse distance raises citation probability by 2 percentage points — consistent with the opportunity-cost hypothesis that officers target drivers least likely to contest a citation.</p>
+
+  <h3>Geographic Distribution</h3>
+  <p>Worcester and Middlesex counties account for the largest share of citations, reflecting both population density and highway corridor traffic volume. The choropleth was produced by merging the citation dataset with 2024 Census county shapefiles using Stata's <code>grmap</code> package.</p>
+
+  <img src="graphs/MA_citations_map.png" alt="Massachusetts Traffic Citations by County" style="width:100%; max-width:780px; display:block; margin:1.2em 0 0.4em;">
+  <div class="meta" style="margin-bottom:1.5em;">Massachusetts traffic citations by county, April–May 2001. Worcester and Middlesex counties lead in total citations issued.</div>
+
+  <h3>Fine Amounts and Recorded Speeds by Income Group</h3>
+  <p>Municipalities were classified as high or low income based on whether 2001 per capita property values were above or below the median across 342 Massachusetts towns. Kernel density plots of recorded speeds and fine amounts show overlapping unimodal distributions for both groups — consistent with the paper's finding that income-group differences in citation outcomes are driven by officer discretion and fiscal incentives rather than differential speeding behavior.</p>
+
+  <div style="display:flex; gap:2em; flex-wrap:wrap; margin:1.2em 0;">
+    <div style="flex:1; min-width:300px;">
+      <img src="graphs/Q4_speeds_income.png" alt="Recorded Speeds by Income Group" style="width:100%; display:block; margin-bottom:0.4em;">
+      <div class="meta">Recorded speeds by income group. Distributions are nearly identical — high and low income drivers are stopped for similar violations.</div>
+    </div>
+    <div style="flex:1; min-width:300px;">
+      <img src="graphs/Q4_fines_income.png" alt="Fine Amounts by Income Group" style="width:100%; display:block; margin-bottom:0.4em;">
+      <div class="meta">Fine amounts by income group. Similar distributions confirm that fine variation is driven by officer discretion, not income-based targeting of severity.</div>
+    </div>
+  </div>
+
+  <h3>Identification Strategy</h3>
+  <p>The core specifications use probit models with marginal effects to estimate citation probability, and OLS with municipality fixed effects absorbed via <code>areg</code> to estimate the in-town penalty while controlling for unobserved municipal heterogeneity. Standard errors are clustered at the municipality level throughout. The Table 5 specification — reproduced below — is the most demanding: it interacts in-town status with town size quartiles to test whether the home-driver discount varies with municipality scale, and separates local from state police to isolate officers who do and do not answer to local fiscal incentives.</p>
+
+  <pre style="background:#1e1e1e; color:#d4d4d4; padding:1.2em 1.5em; border-radius:4px; font-size:0.82em; overflow-x:auto; line-height:1.7; margin:1em 0;">* Table 5 — OLS with municipality fixed effects
+* Local officers only (statepol == 0), clustered by stop municipality
+
+eststo col1: areg nowarn intown lncourtdist ///
+  lnmphover black hispanic female lnage femalelnage cdl2 ///
+  if statepol==0, absorb(stop_muni) cluster(stop_muni)
+
+* Town size × intown interactions
+eststo col2: areg nowarn town1_x_in town2_in town3_x_in town4_x_in lncourtdist ///
+  lnmphover black hispanic female lnage femalelnage cdl2 ///
+  if statepol==0, absorb(stop_muni) cluster(stop_muni)</pre>
+
+  <p>The in-town penalty for local officers is -5.4 percentage points (p &lt; 0.001). Interacting with town size reveals the gradient: the penalty is largest in the smallest towns (-14.9 pp) and shrinks monotonically as town size increases, reaching -2.5 pp in the largest quartile. The pattern is consistent with the political economy story — in small towns, officers know their neighbors and face direct political costs from ticketing them. State police show no significant in-town effect, as expected.</p>
+
+  <h3>Code</h3>
+  <p>The full do file covers all 11 questions in the replication assignment: OLS fine regression, statutory formula compliance, multi-dataset merges, kernel density plots, choropleth mapping with Census shapefiles, summary statistics tables (estpost/esttab), and four-column probit specifications exported with outreg2.</p>
+  <p><a href="replication.do">Download do file</a> &nbsp;&bull;&nbsp; <a href="https://github.com/Lambcast/Lambcast.github.io/tree/main/projects/econ644-replication" target="_blank">View on GitHub</a></p>
+  <p style="color:#666; font-size:0.9em;">February 2026 &bull; Stata &bull; dprobit &bull; areg &bull; Municipality Fixed Effects &bull; Clustered Standard Errors &bull; grmap</p>
+</section>
+
+<footer>
+  &copy; 2026 Alan Lamb &ndash; Lambcast &nbsp;&bull;&nbsp; <a href="../../forecasts.html" style="color:#999;">Forecasting practice</a>
+</footer>
+</body>
+</html>
