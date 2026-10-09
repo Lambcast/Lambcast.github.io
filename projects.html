@@ -29,26 +29,21 @@
 <section>
   <h2>Projects</h2>
 
-  <h3><a href="https://bearing.fyi" target="_blank">Bearing</a></h3>
-  <p>A mobile-first Progressive Web App built as a daily intelligence and orientation tool. The core question Bearing asks is whether you're still pointed the right way — it delivers a personalized morning brief that connects your work, reading, and projects to what's happening in the world.</p>
-  <p>Built solo from zero to a fully deployed product with authentication, payments, AI features, and cross-device sync. The stack is React + Vite (PWA, installable from the browser on iOS and Android), Supabase for the database and auth, the Claude API for all AI features routed through a secure edge function, Stripe for subscriptions, and Vercel for deployment. The founding member tier (first 500 users get premium free) is handled entirely by a Supabase database trigger.</p>
-  <p>
-    <a href="https://bearing.fyi" target="_blank">bearing.fyi</a>
-    &nbsp;&bull;&nbsp;
-    <a href="https://github.com/Lambcast/the-brief" target="_blank">GitHub</a>
-  </p>
-  <p style="color:#666; font-size:0.9em;">2026 &bull; React &bull; Vite &bull; Supabase &bull; Claude API &bull; Stripe &bull; Vercel &bull; JavaScript &bull; TypeScript &bull; SQL</p>
+  <h3><a href="projects/econ685-generator-retirement/econ685-generator-retirement.html">Which Generators Retire? Machine Learning on the PJM Fleet</a></h3>
+  <p>Classification of 7,660 generating units in the PJM footprint using the 2024 EIA-860 survey. Seven models compared: logistic regression with forward and L1 selection, a GAM with B-splines on age and log capacity, random forest, gradient boosting, and XGBoost. The random forest reaches a test AUC of 0.979 and an F-score of 0.866. Age alone is sufficient but not necessary: removing it from the full models costs only about 0.015 AUC on average, so fuel, technology, and unit size carry most of the retirement signal independently of vintage. An extension scores the operating fleet to identify which units resemble those the market has already pushed out.</p>
+  <p><a href="projects/econ685-generator-retirement/econ685-generator-retirement.html">Full writeup →</a></p>
+  <p style="color:#666; font-size:0.9em;">Summer 2026 &bull; EIA-860 &bull; Logit &bull; GAM &bull; Random Forest &bull; XGBoost &bull; Python</p>
 
   <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
 
   <h3><a href="projects/olist/olist-ecommerce-analysis.html">E-Commerce Analytics: Olist Brazilian Marketplace</a></h3>
-  <p>SQL analysis of 100,000 orders — growth trends, customer retention, delivery performance, and review score drivers. Built with DuckDB and Python.</p>
+  <p>SQL analysis of 100,000 orders covering growth trends, customer retention, delivery performance, and review score drivers. Built with DuckDB and Python.</p>
   <p style="color:#666; font-size:0.9em;">March 2026 &bull; SQL &bull; Python &bull; DuckDB</p>
 
   <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
 
   <h3><a href="projects/bag-tax/bag-tax-did.html">Policy Impact Analysis: Bag Tax Difference-in-Differences</a></h3>
-  <p>Econometric evaluation of a municipal bag tax using a clean DiD design — estimating causal effects on bag usage, retailer behavior, and environmental outcomes.</p>
+  <p>Econometric evaluation of a municipal bag tax using a clean DiD design. Estimates causal effects on bag usage, retailer behavior, and environmental outcomes.</p>
   <p style="color:#666; font-size:0.9em;">March 2026 &bull; Econometrics &bull; DiD &bull; Stata</p>
 
   <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
@@ -57,6 +52,18 @@
   <p>Full replication of Makowsky &amp; Stratmann (2009) using 68,357 Massachusetts speeding stops. Confirms that out-of-town drivers face an 11 percentage point higher citation probability and out-of-state drivers face a 10 percentage point higher probability, that only 11% of fines conform to the statutory formula, and that the in-town discount for local officers is largest in small towns and shrinks monotonically with municipality size. Probit with clustered standard errors, OLS with municipality fixed effects, choropleth mapping with Census shapefiles.</p>
   <p><a href="projects/econ644-replication/econ644-replication.html">Full replication →</a></p>
   <p style="color:#666; font-size:0.9em;">February 2026 &bull; Stata &bull; dprobit &bull; areg &bull; Municipality Fixed Effects</p>
+
+  <hr style="margin: 2em 0; border: none; border-top: 1px solid #ddd;">
+
+  <h3><a href="https://bearing.fyi" target="_blank">Bearing</a></h3>
+  <p>A mobile-first Progressive Web App built as a daily intelligence and orientation tool. The core question Bearing asks is whether you're still pointed the right way. It delivers a personalized morning brief that connects your work, reading, and projects to what's happening in the world.</p>
+  <p>Built solo from zero to a fully deployed product with authentication, payments, AI features, and cross-device sync. The stack is React + Vite (PWA, installable from the browser on iOS and Android), Supabase for the database and auth, the Claude API for all AI features routed through a secure edge function, Stripe for subscriptions, and Vercel for deployment. The founding member tier (first 500 users get premium free) is handled entirely by a Supabase database trigger.</p>
+  <p>
+    <a href="https://bearing.fyi" target="_blank">bearing.fyi</a>
+    &nbsp;&bull;&nbsp;
+    <a href="https://github.com/Lambcast/the-brief" target="_blank">GitHub</a>
+  </p>
+  <p style="color:#666; font-size:0.9em;">2026 &bull; React &bull; Vite &bull; Supabase &bull; Claude API &bull; Stripe &bull; Vercel &bull; JavaScript &bull; TypeScript &bull; SQL</p>
 
 </section>
 <footer>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Which Generators Retire? &ndash; Lambcast</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <meta property="og:title" content="Which Generators Retire? Machine Learning on the PJM Fleet">
+  <meta property="og:description" content="Classification of PJM-footprint generating units using the 2024 EIA-860 survey.">
+  <meta property="og:image" content="https://lambcast.net/og-lamb-a.png">
+  <meta property="og:url" content="https://lambcast.net/projects/econ685-generator-retirement/econ685-generator-retirement.html">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header>
+  <h1><a href="../../index.html" style="text-decoration:none; color:inherit;">Lambcast</a></h1>
+  <p>Energy Economics &bull; AI Infrastructure &bull; Applied Econometrics</p>
+</header>
+<nav>
+  <a href="../../index.html">Home</a>
+  <a href="../../research.html">Research</a>
+  <a href="../../projects.html">Projects</a>
+  <a href="../../about.html">About</a>
+</nav>
+<section>
+  <h2>Which Generators Retire?</h2>
+  <p style="color:#666; font-size:0.95em;">Machine learning on the PJM fleet &bull; ECON 685, University of Maryland &bull; Summer 2026</p>
+
+  <p>PJM operates the largest wholesale electricity market in the United States and sits at the center of data-center-driven demand growth. At the same moment demand is accelerating, the existing fleet is losing units to retirement every year, and the ones that leave are not a random sample. This project asks a narrow question: given a generating unit's physical and operational attributes, how closely does it match the profile of units that have already retired?</p>
+
+  <p>The data is the 2024 EIA-860 generator survey, restricted to the 13 states of the PJM footprint. The sample is 7,660 units, of which 1,256 (16.4 percent) are classified as retired. The outcome is binary and the predictors are physical: age, nameplate and seasonal capacity, minimum load, power factor, state, technology, prime mover, primary fuel, sector, and a set of configuration flags.</p>
+
+  <p>I fit seven models on a 75/25 train/test split: a logistic regression, a forward-selected logit under a BIC criterion adapted to classification, an L1-penalized logit with the penalty chosen by cross-validation, a generalized additive model with B-splines on age and log capacity, a random forest, gradient boosting, and XGBoost. Every model is evaluated out of sample on the same split for direct comparison.</p>
+
+  <p>Three findings organize the results. First, retirement status is highly learnable from physical attributes alone: all seven models clear a test AUC of 0.92, and the random forest reaches 0.979 with a test F-score of 0.866. Second, the predictive signal is concentrated: forward selection keeps 8 of 18 variables at essentially full-model performance. Third, although age is the single strongest predictor, it is not the whole story. A logit with age alone gets to 0.79 AUC, but removing age from the full models costs only about 0.015 AUC on average. Fuel, technology, and unit size carry most of the signal independently of vintage. The retired profile that emerges is old, small, and fuel-inflexible, which matches the coal-retirement literature.</p>
+
+  <p>As an extension, I score every operating unit with an out-of-fold retirement-resemblance probability and aggregate the capacity-weighted share above a threshold by state. Maryland, Indiana, and Kentucky hold the largest shares of retirement-resembling operating capacity, around 5 percent each. This is a fleet-composition lens rather than a closure forecast, but it points at where the operating fleet most resembles the units the market has already pushed out.</p>
+
+  <h3>Model comparison (test set, threshold = 0.50)</h3>
+  <table style="border-collapse: collapse; margin: 1em 0;">
+    <thead>
+      <tr style="border-bottom: 2px solid #333;">
+        <th style="text-align:left; padding: 0.5em 1em;">Model</th>
+        <th style="text-align:right; padding: 0.5em 1em;">Accuracy</th>
+        <th style="text-align:right; padding: 0.5em 1em;">Precision</th>
+        <th style="text-align:right; padding: 0.5em 1em;">Recall</th>
+        <th style="text-align:right; padding: 0.5em 1em;">F-score</th>
+        <th style="text-align:right; padding: 0.5em 1em;">AUC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding: 0.3em 1em;">Logit (full)</td><td style="text-align:right; padding: 0.3em 1em;">0.906</td><td style="text-align:right; padding: 0.3em 1em;">0.879</td><td style="text-align:right; padding: 0.3em 1em;">0.502</td><td style="text-align:right; padding: 0.3em 1em;">0.639</td><td style="text-align:right; padding: 0.3em 1em;">0.924</td></tr>
+      <tr><td style="padding: 0.3em 1em;">Logit (forward, BIC)</td><td style="text-align:right; padding: 0.3em 1em;">0.901</td><td style="text-align:right; padding: 0.3em 1em;">0.864</td><td style="text-align:right; padding: 0.3em 1em;">0.480</td><td style="text-align:right; padding: 0.3em 1em;">0.617</td><td style="text-align:right; padding: 0.3em 1em;">0.922</td></tr>
+      <tr><td style="padding: 0.3em 1em;">Logit (L1)</td><td style="text-align:right; padding: 0.3em 1em;">0.906</td><td style="text-align:right; padding: 0.3em 1em;">0.879</td><td style="text-align:right; padding: 0.3em 1em;">0.502</td><td style="text-align:right; padding: 0.3em 1em;">0.639</td><td style="text-align:right; padding: 0.3em 1em;">0.925</td></tr>
+      <tr><td style="padding: 0.3em 1em;">GAM (B-splines)</td><td style="text-align:right; padding: 0.3em 1em;">0.911</td><td style="text-align:right; padding: 0.3em 1em;">0.878</td><td style="text-align:right; padding: 0.3em 1em;">0.542</td><td style="text-align:right; padding: 0.3em 1em;">0.671</td><td style="text-align:right; padding: 0.3em 1em;">0.929</td></tr>
+      <tr><td style="padding: 0.3em 1em;">Gradient boosting</td><td style="text-align:right; padding: 0.3em 1em;">0.920</td><td style="text-align:right; padding: 0.3em 1em;">0.923</td><td style="text-align:right; padding: 0.3em 1em;">0.564</td><td style="text-align:right; padding: 0.3em 1em;">0.700</td><td style="text-align:right; padding: 0.3em 1em;">0.955</td></tr>
+      <tr><td style="padding: 0.3em 1em;"><strong>Random forest</strong></td><td style="text-align:right; padding: 0.3em 1em;"><strong>0.958</strong></td><td style="text-align:right; padding: 0.3em 1em;"><strong>0.916</strong></td><td style="text-align:right; padding: 0.3em 1em;"><strong>0.821</strong></td><td style="text-align:right; padding: 0.3em 1em;"><strong>0.866</strong></td><td style="text-align:right; padding: 0.3em 1em;"><strong>0.979</strong></td></tr>
+      <tr><td style="padding: 0.3em 1em;">XGBoost</td><td style="text-align:right; padding: 0.3em 1em;">0.945</td><td style="text-align:right; padding: 0.3em 1em;">0.921</td><td style="text-align:right; padding: 0.3em 1em;">0.730</td><td style="text-align:right; padding: 0.3em 1em;">0.815</td><td style="text-align:right; padding: 0.3em 1em;">0.974</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="Alan_Lamb_Term_Project.py">Download Python pipeline</a>
+    &nbsp;&bull;&nbsp;
+    <a href="Alan_Lamb_Term_Paper.pdf">Download term paper (PDF)</a>
+  </p>
+
+  <p style="color:#666; font-size:0.9em;">Summer 2026 &bull; EIA-860 &bull; Logit &bull; GAM &bull; Random Forest &bull; Gradient Boosting &bull; XGBoost &bull; Python</p>
+</section>
+<footer>
+  &copy; 2026 Alan Lamb &ndash; Lambcast &nbsp;&bull;&nbsp; <a href="../../forecasts.html" style="color:#999;">Forecasting practice</a>
+</footer>
+</body>
+</html>
